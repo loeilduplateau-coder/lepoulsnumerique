@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flyer A5 - Le Pouls Numérique</title>
+  <style>
+    @page {
+      size: A5; /* Format A5 pour l'impression */
+      margin: 0;
+    }
+
+    body {
+      background-color: #525659;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      margin: 0;
+    }
+
+    /* Format A5 : 148mm x 210mm */
+    .flyer {
+      width: 148mm;
+      height: 210mm;
+      background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      padding: 12mm;
+    }
+
+    /* Éléments décoratifs de fond */
+    .flyer::before {
+      content: "";
+      position: absolute;
+      top: -20mm;
+      right: -20mm;
+      width: 80mm;
+      height: 80mm;
+      background: #f97316;
+      border-radius: 50%;
+      opacity: 0.1;
+      filter: blur(20px);
+    }
+    
+    .flyer::after {
+      content: "";
+      position: absolute;
+      bottom: -30mm;
+      left: -30mm;
+      width: 100mm;
+      height: 100mm;
+      background: #10b981;
+      border-radius: 50%;
+      opacity: 0.05;
+      filter: blur(20px);
+    }
+
+    /* En-tête */
+    .header {
+      position: relative;
+      z-index: 2;
+      margin-bottom: 8mm;
+      border-bottom: 2px solid rgba(255,255,255,0.1);
+      padding-bottom: 5mm;
+    }
+
+    .logo {
+      font-size: 24pt;
+      font-weight: 800;
+      margin: 0;
+      line-height: 1;
+    }
+    
+    .logo span { color: #f97316; }
+
+    .tagline {
+      font-size: 10pt;
+      color: #94a3b8;
+      margin-top: 2mm;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* Corps du flyer */
+    .content {
+      position: relative;
+      z-index: 2;
+      flex-grow: 1;
+    }
+
+    .headline {
+      font-size: 22pt;
+      font-weight: 800;
+      line-height: 1.1;
+      margin: 0 0 4mm 0;
+      color: #ffffff;
+    }
+
+    .headline .highlight {
+      color: #f97316;
+    }
+
+    .description {
+      font-size: 10pt;
+      line-height: 1.5;
+      color: #cbd5e1;
+      margin-bottom: 8mm;
+    }
+
+    /* Bloc "Ce qu'on fait" */
+    .features {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 4mm;
+      padding: 6mm;
+      margin-bottom: 8mm;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 3mm;
+      margin-bottom: 4mm;
+    }
+    
+    .feature-item:last-child { margin-bottom: 0; }
+
+    .feature-icon {
+      background: #10b981;
+      color: white;
+      width: 6mm;
+      height: 6mm;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 8pt;
+      flex-shrink: 0;
+      margin-top: 0.5mm;
+    }
+
+    .feature-text {
+      font-size: 9pt;
+      color: #e2e8f0;
+      line-height: 1.3;
+    }
+
+    .feature-text strong {
+      display: block;
+      color: #ffffff;
+      font-size: 10pt;
+      margin-bottom: 1mm;
+    }
+
+    /* Pied de page (Action & QR Code) */
+    .footer {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      color: #0f172a;
+      padding: 5mm;
+      border-radius: 4mm;
+      margin-top: auto;
+    }
+
+    .cta-text {
+      flex: 1;
+      padding-right: 4mm;
+    }
+
+    .cta-title {
+      font-size: 12pt;
+      font-weight: 800;
+      margin: 0 0 1mm 0;
+      text-transform: uppercase;
+    }
+
+    .cta-subtitle {
+      font-size: 8pt;
+      color: #64748b;
+      margin: 0 0 2mm 0;
+      line-height: 1.2;
+    }
+
+    .contact-info {
+      font-size: 8pt;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .qr-container {
+      text-align: center;
+    }
+
+    .qr-code {
+      width: 28mm;
+      height: 28mm;
+      border-radius: 2mm;
+      border: 1px solid #e2e8f0;
+      padding: 1mm;
+    }
+
+    .qr-label {
+      font-size: 6pt;
+      font-weight: bold;
+      color: #0f172a;
+      margin-top: 1mm;
+      text-transform: uppercase;
+    }
+
+    /* Impression */
+    @media print {
+      body {
+        background-color: transparent;
+        padding: 0;
+      }
+      .flyer {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="flyer">
+    
+    <!-- En-tête -->
+    <div class="header">
+      <h1 class="logo">Le Pouls <span>Numérique</span></h1>
+      <div class="tagline">Santé & Technologie en Côte d'Ivoire</div>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="content">
+      <h2 class="headline">
+        Le numérique change la santé.<br>
+        <span class="highlight">Ne restez pas sur le bas-côté.</span>
+      </h2>
+      
+      <p class="description">
+        Entre les rumeurs sur WhatsApp et les nouveaux outils de soins, il est difficile de s'y retrouver. 
+        <strong>Le Pouls Numérique</strong> décrypte tout ça pour vous, simplement.
+      </p>
+
+      <div class="features">
+        <div class="feature-item">
+          <div class="feature-icon">1</div>
+          <div class="feature-text">
+            <strong>Une newsletter gratuite</strong>
+            Chaque semaine, des articles clairs sur la santé ivoirienne à l'ère du digital.
+          </div>
+        </div>
+        
+        <div class="feature-item">
+          <div class="feature-icon">2</div>
+          <div class="feature-text">
+            <strong>Des formations pratiques</strong>
+            Apprenez à repérer les Fake News et à maîtriser les outils numériques de santé.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pied de page (Action & QR Code) -->
+    <div class="footer">
+      <div class="cta-text">
+        <h3 class="cta-title">Rejoignez-nous !</h3>
+        <p class="cta-subtitle">Scannez le QR code ou rendez-vous sur notre site pour lire le 1er article.</p>
+        <div class="contact-info">
+          WhatsApp : +225 07 78 39 70 90<br>
+          fb.com/lepoulsnumerique
+        </div>
+      </div>
+      
+      <div class="qr-container">
+        <img 
+          src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://loeilduplateau-coder.github.io/lepoulsnumerique/&color=0f172a" 
+          alt="QR Code" 
+          class="qr-code" 
+        />
+        <div class="qr-label">Scanner ici</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carte de visite - Mariane</title>
+  <style>
+    /* --- CONFIGURATION POUR L'IMPRESSION --- */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    body {
+      background-color: #525659; /* Fond gris comme un lecteur PDF */
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      gap: 2rem;
+      margin: 0;
+    }
+
+    /* --- FORMAT STANDARD CARTE DE VISITE (85mm x 55mm) --- */
+    .card {
+      width: 85mm;
+      height: 55mm;
+      border-radius: 3mm;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+      /* Couleurs de ta charte graphique */
+      background-color: #0f172a; 
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-sizing: border-box;
+      /* Pour l'impression, pas de bordures arrondies si on veut un fond perdu */
+    }
+
+    /* --- RECTO --- */
+    .recto {
+      padding: 8mm;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    }
+
+    .recto::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: #f97316; /* Ligne orange en haut */
+    }
+
+    .name {
+      font-size: 20pt;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 1mm 0;
+      line-height: 1;
+      letter-spacing: -0.5px;
+    }
+
+    .title {
+      font-size: 9pt;
+      color: #f97316; /* Orange */
+      font-weight: 600;
+      margin: 0 0 4mm 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .bio {
+      font-size: 8pt;
+      color: #94a3b8;
+      line-height: 1.4;
+      margin: 0;
+      padding-right: 5mm;
+    }
+
+    /* --- VERSO --- */
+    .verso {
+      background-color: #ffffff;
+      color: #1e293b;
+      padding: 6mm;
+      justify-content: space-between;
+    }
+
+    .logo-text {
+      font-size: 14pt;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .logo-text span {
+      color: #f97316;
+    }
+
+    .slogan {
+      font-size: 7pt;
+      color: #64748b;
+      margin-top: 1mm;
+      font-weight: 500;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5mm;
+      font-size: 8pt;
+      font-weight: 500;
+      color: #334155;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 2mm;
+    }
+
+    /* Les petites icônes en CSS (cercles) */
+    .icon {
+      width: 4mm;
+      height: 4mm;
+      background-color: #f97316;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 5pt;
+      font-weight: bold;
+    }
+
+    .footer-verso {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 6pt;
+      color: #94a3b8;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 2mm;
+      margin-top: 2mm;
+    }
+
+    /* --- LOGIQUE D'IMPRESSION --- */
+    @media print {
+      body {
+        background-color: transparent;
+        padding: 0;
+        display: block;
+      }
+      .card {
+        box-shadow: none;
+        border-radius: 0; /* En impression, la carte est découpée au massicot */
+        page-break-inside: avoid;
+      }
+      .recto {
+        margin: 10mm; /* Marge pour le gabarit A4 */
+      }
+      .verso {
+        margin: 10mm;
+        border: 1px solid #ccc; /* Pour voir les limites du verso sur papier blanc */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= RECTO ================= -->
+  <div class="card recto">
+    <h1 class="name">Mariane</h1>
+    <div class="title">Étudiante en Médecine</div>
+    <p class="bio">
+      Créatrice du <strong>Pouls Numérique</strong>.<br>
+      Je décrypte la santé à l'ère du numérique en Côte d'Ivoire et je forme les acteurs de demain.
+    </p>
+  </div>
+
+  <!-- ================= VERSO ================= -->
+  <div class="card verso">
+    <div>
+      <h2 class="logo-text">Le Pouls <span>Numérique</span></h2>
+      <div class="slogan">La santé ivoirienne & le numérique.</div>
+    </div>
+
+    <div class="contact-info">
+      <div class="contact-row">
+        <div class="icon">W</div>
+        <span>+225 07 78 39 70 90</span>
+      </div>
+      <div class="contact-row">
+        <div class="icon">@</div>
+        <span>contact@lepoulsnumerique.ci</span>
+      </div>
+      <div class="contact-row">
+        <div class="icon">G</div>
+        <span>loeilduplateau-coder.github.io/lepoulsnumerique</span>
+      </div>
+      <div class="contact-row">
+        <div class="icon">F</div>
+        <span>facebook.com/lepoulsnumerique</span>
+      </div>
+    </div>
+
+    <div class="footer-verso">
+      <span>Abidjan, Côte d'Ivoire</span>
+      <span>Substack : @lepoulsnumerique</span>
+    </div>
+  </div>
+
+</body>
+</html>

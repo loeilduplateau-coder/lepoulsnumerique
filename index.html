@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mariane — Le Pouls Numérique</title>
+  <meta name="description" content="Étudiante en médecine. Santé numérique, réalités ivoiriennes & Formations." />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #f97316;
+      --green: #10b981;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      padding: 1.5rem;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+      margin: 2rem 0;
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+      margin-bottom: 1rem;
+      background: #334155;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 0.3rem;
+      color: #fff;
+    }
+
+    .bio {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.2rem;
+      line-height: 1.5;
+      padding: 0 0.5rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      font-size: 0.7rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn {
+      display: block;
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.15s ease, background 0.15s ease;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: #0f172a;
+      font-weight: 700;
+      border: none;
+      margin-bottom: 0.6rem;
+    }
+
+    .btn.primary:hover {
+      background: #fb8c3a;
+    }
+
+    .btn.formation {
+      background: var(--green);
+      color: #fff;
+      font-weight: 700;
+      border: none;
+      margin-bottom: 1.2rem;
+    }
+
+    .btn.formation:hover {
+      background: #059669;
+    }
+
+    .links {
+      display: grid;
+      gap: 0.6rem;
+      margin-bottom: 1.2rem;
+    }
+
+    footer small {
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <!-- L'image affichera un cercle gris pour l'instant, tu pourras ajouter avatar.jpg plus tard -->
+    <img src="assets/avatar.jpg" alt="Photo de Mariane" class="avatar" />
+    
+    <h1>Mariane</h1>
+    
+    <p class="bio">Étudiante en médecine. Je décrypte la santé en Côte d'Ivoire à l'ère du numérique et je forme pour agir.</p>
+    
+    <div class="tags">
+      <span class="tag">Santé Numérique</span>
+      <span class="tag">Fake News</span>
+      <span class="tag">Formations</span>
+    </div>
+
+    <!-- CTA Substack -->
+    <a class="btn primary" href="https://lepoulsnumerique.substack.com" target="_blank" rel="noopener">
+      📖 Lire Le Pouls Numérique
+    </a>
+
+    <!-- CTA Formations (Lien temporaire vers ton WhatsApp pour le moment) -->
+    <a class="btn formation" href="https://wa.me/2250778397090" target="_blank" rel="noopener">
+      🎓 Se renseigner sur les formations
+    </a>
+
+    <div class="links">
+      <!-- Lien WhatsApp avec l'indicatif 225 de la Côte d'Ivoire ajouté -->
+      <a class="btn" href="https://wa.me/2250778397090" target="_blank" rel="noopener">WhatsApp</a>
+      
+      <a class="btn" href="https://facebook.com/lepoulsnumerique" target="_blank" rel="noopener">Facebook</a>
+      
+      <!-- Liens probables, à modifier si besoin -->
+      <a class="btn" href="https://instagram.com/lepoulsnumerique" target="_blank" rel="noopener">Instagram</a>
+      
+      <a class="btn" href="https://linkedin.com/in/mariane-lepoulsnumerique" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+
+    <footer>
+      <small>© 2026 · Le Pouls Numérique</small>
+    </footer>
+  </main>
+</body>
+</html>
