@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Djoloba - La santé à portée de main</title>
+  <meta name="description" content="Trouvez une pharmacie de garde, un hôpital ou une clinique en Côte d'Ivoire." />
+  
+  <!-- Lien pour la PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#10b981" />
+  
+  <style>
+    :root {
+      --bg: #f8fafc; 
+      --card: #ffffff; 
+      --text: #1e293b; 
+      --muted: #64748b;
+      --primary: #10b981; 
+      --primary-hover: #059669; 
+      --alert: #ef4444;
+      --purple: #8b5cf6;
+      --yellow-bg: #fefce8;
+      --yellow-border: #fef08a;
+      --yellow-text: #854d0e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      padding-bottom: 2rem;
+      overflow-x: hidden; 
+    }
+
+    .container { 
+      width: 100%;
+      max-width: 600px; 
+      margin: 0 auto; 
+    }
+
+    /* --- EN-TÊTE BLEU AVEC LOGO CENTRÉ --- */
+    .header-weather {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      padding: 1.5rem 1.2rem 1.2rem 1.2rem; 
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .header-top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo { font-size: 2rem; font-weight: 800; color: white; letter-spacing: -0.5px; }
+    .logo span { color: #bfdbfe; }
+    
+    .badge-ci {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .weather-info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid rgba(255,255,255,0.2); 
+      padding-top: 1rem;
+    }
+
+    .weather-text h4 { font-size: 0.8rem; text-transform: uppercase; opacity: 0.9; margin-bottom: 0.2rem; }
+    .weather-text p { font-size: 1rem; font-weight: 500; }
+    .weather-temp { font-size: 2rem; font-weight: 800; line-height: 1; }
+
+    /* --- RESTE DU DESIGN --- */
+    @media (max-width: 600px) {
+      .header-weather { border-radius: 0; }
+      .content-wrapper { padding: 0 0.5rem; }
+    }
+    @media (min-width: 601px) {
+      .header-weather { border-radius: 0 0 16px 16px; margin-top: 1rem; }
+      .content-wrapper { padding: 0; }
+    }
+
+    .tip-card {
+      background-color: var(--yellow-bg);
+      border: 1px solid var(--yellow-border);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .tip-image {
+      width: 60px; height: 60px; border-radius: 50%;
+      object-fit: cover; border: 2px solid var(--yellow-border);
+      background-color: #fff; flex-shrink: 0;
+    }
+    .tip-content h4 { color: var(--yellow-text); font-size: 0.9rem; margin-bottom: 0.2rem; }
+    .tip-content p { font-size: 0.85rem; color: #713f12; line-height: 1.4; }
+
+    .search-box {
+      background-color: var(--card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      margin-bottom: 1rem;
+    }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; }
+    select, button { width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 1rem; font-family: inherit; }
+    button.btn-primary { background-color: var(--primary); color: white; border: none; font-weight: 700; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
+    
+    .radio-widget {
+      background-color: var(--card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .radio-header { display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .radio-header h3 { font-size: 1.1rem; color: var(--text); }
+    .live-dot { width: 10px; height: 10px; background-color: var(--alert); border-radius: 50%; animation: blink 1.5s infinite; }
+    @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+    .radio-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
+    .radio-btn { background-color: var(--purple); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 20px; font-weight: 700; cursor: pointer; transition: background 0.2s; width: auto; }
+
+    .emergency-btn {
+      background-color: var(--alert);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+    }
+
+    .promo-box {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white; border-radius: 12px; padding: 1.2rem; text-align: center;
+    }
+    .promo-box h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .promo-box p { font-size: 0.85rem; color: #94a3b8; margin-bottom: 1rem; }
+    .btn-promo { display: inline-block; background-color: #f97316; color: #0f172a; text-decoration: none; font-weight: 700; padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- EN-TÊTE BLEU (Logo centré + Météo) -->
+    <div class="header-weather">
+      <div class="header-top">
+        <div class="logo">Djolo<span>ba</span></div>
+        <div class="badge-ci">🇨🇮 Santé en Côte d'Ivoire</div>
+      </div>
+
+      <div class="weather-info-row" id="weather-widget" style="display: none;">
+        <div class="weather-text">
+          <h4>Météo à Abidjan</h4>
+          <p id="weather-desc">Chargement...</p>
+        </div>
+        <div class="weather-temp" id="weather-temp">--°C</div>
+      </div>
+    </div>
+
+    <!-- CONTENEUR DES CARTES -->
+    <div class="content-wrapper">
+      
+      <!-- CONSEIL DU JOUR -->
+      <div class="tip-card">
+        <img id="tip-image" src="" alt="Conseil santé" class="tip-image">
+        <div class="tip-content">
+          <h4>Le conseil du jour</h4>
+          <p id="daily-tip">Chargement...</p>
+        </div>
+      </div>
+
+      <!-- RECHERCHE -->
+      <div class="search-box">
+        <div class="form-group">
+          <label>Que cherchez-vous ?</label>
+          <select>
+            <option>Pharmacie de garde</option>
+            <option>Hôpital public</option>
+            <option>Clinique privée</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Votre quartier / ville</label>
+          <select>
+            <option>Abidjan - Cocody</option>
+            <option>Abidjan - Plateau</option>
+            <option>Abidjan - Yopougon</option>
+            <option>Bouaké</option>
+          </select>
+        </div>
+        <button class="btn-primary" onclick="alert('Bientôt disponible !')">Trouver maintenant</button>
+      </div>
+
+      <!-- RADIO -->
+      <div class="radio-widget">
+        <div class="radio-header">
+          <span class="live-dot"></span> 
+          <h3>Radio Djoloba</h3>
+        </div>
+        <p class="radio-desc">La chronique santé du jour (2 min)</p>
+        <audio id="audioPlayer" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+        <button class="radio-btn" id="playBtn" onclick="togglePlay()">▶ Écouter la chronique</button>
+      </div>
+
+      <!-- URGENCE -->
+      <a href="tel:185" class="emergency-btn">
+        <span>🚨</span> Appeler le SAMU (185)
+      </a>
+
+      <!-- PROMO -->
+      <div class="promo-box">
+        <h3>Envie d'en savoir plus sur votre santé ?</h3>
+        <p>Découvrez Le Pouls Numérique. Des articles clairs et des conseils pour vous protéger des fake news.</p>
+        <a href="https://loeilduplateau-coder.github.io/lepoulsnumerique/" class="btn-promo">Lire les articles</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // MÉTÉO
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=5.30966&longitude=-4.01266&current_weather=true')
+      .then(res => res.json())
+      .then(data => {
+        const temp = Math.round(data.current_weather.temperature);
+        let desc = "Ciel dégagé"; 
+        const code = data.current_weather.weathercode;
+        if (code >= 1 && code <= 3) desc = "Nuageux";
+        if (code >= 45 && code <= 48) desc = "Brouillard";
+        if (code >= 51 && code <= 67) desc = "Pluie";
+        if (code >= 80 && code <= 82) desc = "Averses";
+        if (code >= 95) desc = "Orage";
+        document.getElementById('weather-temp').innerText = temp + "°C";
+        document.getElementById('weather-desc').innerText = desc;
+        document.getElementById('weather-widget').style.display = 'flex';
+      }).catch(e => console.log(e));
+
+    // CONSEIL DU JOUR
+    const tipsData = [
+      { texte: "Buvez au moins 1,5L d'eau par jour pour éviter la déshydratation.", image: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=150&h=150&fit=crop" },
+      { texte: "Dormez sous une moustiquaire imprégnée pour éviter le paludisme.", image: "https://images.unsplash.com/photo-1599818817847-39b507edaa2e?w=150&h=150&fit=crop" },
+      { texte: "Lavez-vous les mains régulièrement pour limiter les infections.", image: "https://images.unsplash.com/photo-1584820927498-cafe3c157921?w=150&h=150&fit=crop" },
+      { texte: "Évitez l'automédication, consultez un professionnel de santé.", image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=150&h=150&fit=crop" },
+      { texte: "Les eaux stagnantes attirent les moustiques. Nettoyez vos environs.", image: "https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=150&h=150&fit=crop" }
+    ];
+    const randomIndex = Math.floor(Math.random() * tipsData.length);
+    const selectedTip = tipsData[randomIndex];
+    document.getElementById('daily-tip').innerText = selectedTip.texte;
+    document.getElementById('tip-image').src = selectedTip.image;
+
+    // RADIO
+    const audio = document.getElementById('audioPlayer');
+    const playBtn = document.getElementById('playBtn');
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play();
+        playBtn.innerHTML = "⏸ Mettre en pause";
+        playBtn.style.backgroundColor = "#ef4444"; 
+      } else {
+        audio.pause();
+        playBtn.innerHTML = "▶ Écouter la chronique";
+        playBtn.style.backgroundColor = "#8b5cf6"; 
+      }
+    }
+
+    // --- PWA : Enregistrement du Service Worker ---
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+
+</body>
+</html>

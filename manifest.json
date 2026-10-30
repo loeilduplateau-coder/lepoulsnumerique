@@ -1,0 +1,15 @@
+{
+  "name": "Djoloba - Santé",
+  "short_name": "Djoloba",
+  "start_url": "./djoloba.html",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2966/2966327.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
