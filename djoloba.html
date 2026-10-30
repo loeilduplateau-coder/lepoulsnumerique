@@ -10,6 +10,10 @@
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#10b981" />
   
+  <!-- Bibliothèque de cartes Leaflet (Gratuit) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
   <style>
     :root {
       --bg: #f8fafc; 
@@ -85,7 +89,7 @@
     .weather-text p { font-size: 1rem; font-weight: 500; }
     .weather-temp { font-size: 2rem; font-weight: 800; line-height: 1; }
 
-    /* --- RESTE DU DESIGN --- */
+    /* --- CONTENU --- */
     @media (max-width: 600px) {
       .header-weather { border-radius: 0; }
       .content-wrapper { padding: 0 0.5rem; }
@@ -126,6 +130,19 @@
     button.btn-primary { background-color: var(--primary); color: white; border: none; font-weight: 700; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
     button.btn-primary:hover { background-color: var(--primary-hover); }
     
+    /* Carte */
+    #map-container {
+      display: none; 
+      margin-bottom: 1rem;
+    }
+    #map { 
+      height: 300px; 
+      width: 100%; 
+      border-radius: 12px; 
+      border: 2px solid var(--primary); 
+      z-index: 1; 
+    }
+
     .radio-widget {
       background-color: var(--card);
       border-radius: 16px;
@@ -217,6 +234,11 @@
         <button class="btn-primary" onclick="chercherEtablissement()">Trouver maintenant</button>
       </div>
 
+      <!-- ZONE DE LA CARTE (Cachée au début) -->
+      <div id="map-container">
+        <div id="map"></div>
+      </div>
+
       <!-- RADIO -->
       <div class="radio-widget">
         <div class="radio-header">
@@ -289,21 +311,48 @@
       }
     }
 
-    // --- 4. RECHERCHE GOOGLE MAPS ---
+    // --- 4. RECHERCHE AVEC CARTE INTÉGRÉE ---
+    let map = null; 
+
     function chercherEtablissement() {
-      // On récupère les choix de l'utilisateur grâce aux ID qu'on a ajoutés
       const type = document.getElementById('typeEtablissement').value; 
       const ville = document.getElementById('villeRecherche').value; 
+      
+      document.getElementById('map-container').style.display = 'block';
 
-      // On prépare la requête pour Google Maps
-      const requete = encodeURIComponent(type + " " + ville);
-      const lienMaps = "https://www.google.com/maps/search/?api=1&query=" + requete;
+      if (!map) {
+        map = L.map('map').setView([5.345, -4.024], 12); 
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap'
+        }).addTo(map);
+      }
 
-      // On ouvre le lien
-      window.open(lienMaps, "_blank");
+      // Simulation de données (à remplacer par une vraie base plus tard)
+      const pharmaciesSimulees = [
+        { nom: "Pharmacie du Plateau", lat: 5.324, lng: -4.018 },
+        { nom: "Pharmacie de Cocody", lat: 5.355, lng: -3.990 },
+        { nom: "Pharmacie de Yopougon", lat: 5.340, lng: -4.080 }
+      ];
+
+      map.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+          map.removeLayer(layer);
+        }
+      });
+
+      pharmaciesSimulees.forEach(function(pharmacie) {
+        L.marker([pharmacie.lat, pharmacie.lng])
+          .addTo(map)
+          .bindPopup("<b>" + pharmacie.nom + "</b><br>Cliquez pour appeler");
+      });
+
+      map.setView([5.345, -4.024], 12);
+      
+      // Petit scroll vers la carte pour que l'utilisateur la voie
+      document.getElementById('map').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // --- 5. PWA : Enregistrement du Service Worker ---
+    // --- 5. PWA : Service Worker ---
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
     }
