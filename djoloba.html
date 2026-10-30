@@ -322,7 +322,9 @@
 
       if (!map) {
         map = L.map('map').setView([5.345, -4.024], 12); 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+  attribution: '© OpenStreetMap © CARTO'
+}).addTo(map);
           attribution: '© OpenStreetMap'
         }).addTo(map);
       }
