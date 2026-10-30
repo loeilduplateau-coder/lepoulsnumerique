@@ -124,6 +124,7 @@
     .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; }
     select, button { width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 1rem; font-family: inherit; }
     button.btn-primary { background-color: var(--primary); color: white; border: none; font-weight: 700; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
+    button.btn-primary:hover { background-color: var(--primary-hover); }
     
     .radio-widget {
       background-color: var(--card);
@@ -198,7 +199,7 @@
       <div class="search-box">
         <div class="form-group">
           <label>Que cherchez-vous ?</label>
-          <select>
+          <select id="typeEtablissement">
             <option>Pharmacie de garde</option>
             <option>Hôpital public</option>
             <option>Clinique privée</option>
@@ -206,14 +207,14 @@
         </div>
         <div class="form-group">
           <label>Votre quartier / ville</label>
-          <select>
+          <select id="villeRecherche">
             <option>Abidjan - Cocody</option>
             <option>Abidjan - Plateau</option>
             <option>Abidjan - Yopougon</option>
             <option>Bouaké</option>
           </select>
         </div>
-        <button class="btn-primary" onclick="alert('Bientôt disponible !')">Trouver maintenant</button>
+        <button class="btn-primary" onclick="chercherEtablissement()">Trouver maintenant</button>
       </div>
 
       <!-- RADIO -->
@@ -243,7 +244,7 @@
   </div>
 
   <script>
-    // MÉTÉO
+    // --- 1. MÉTÉO ---
     fetch('https://api.open-meteo.com/v1/forecast?latitude=5.30966&longitude=-4.01266&current_weather=true')
       .then(res => res.json())
       .then(data => {
@@ -260,7 +261,7 @@
         document.getElementById('weather-widget').style.display = 'flex';
       }).catch(e => console.log(e));
 
-    // CONSEIL DU JOUR
+    // --- 2. CONSEIL DU JOUR ---
     const tipsData = [
       { texte: "Buvez au moins 1,5L d'eau par jour pour éviter la déshydratation.", image: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=150&h=150&fit=crop" },
       { texte: "Dormez sous une moustiquaire imprégnée pour éviter le paludisme.", image: "https://images.unsplash.com/photo-1599818817847-39b507edaa2e?w=150&h=150&fit=crop" },
@@ -273,7 +274,7 @@
     document.getElementById('daily-tip').innerText = selectedTip.texte;
     document.getElementById('tip-image').src = selectedTip.image;
 
-    // RADIO
+    // --- 3. RADIO (PLAY/PAUSE) ---
     const audio = document.getElementById('audioPlayer');
     const playBtn = document.getElementById('playBtn');
     function togglePlay() {
@@ -288,7 +289,21 @@
       }
     }
 
-    // --- PWA : Enregistrement du Service Worker ---
+    // --- 4. RECHERCHE GOOGLE MAPS ---
+    function chercherEtablissement() {
+      // On récupère les choix de l'utilisateur grâce aux ID qu'on a ajoutés
+      const type = document.getElementById('typeEtablissement').value; 
+      const ville = document.getElementById('villeRecherche').value; 
+
+      // On prépare la requête pour Google Maps
+      const requete = encodeURIComponent(type + " " + ville);
+      const lienMaps = "https://www.google.com/maps/search/?api=1&query=" + requete;
+
+      // On ouvre le lien
+      window.open(lienMaps, "_blank");
+    }
+
+    // --- 5. PWA : Enregistrement du Service Worker ---
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
     }
