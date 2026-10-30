@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formations - Le Pouls Numérique</title>
+  <style>
+    :root { --bg: #0f172a; --card: #1e293b; --text: #e2e8f0; --muted: #94a3b8; --primary: #10b981; --primary-hover: #059669; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background-color: var(--bg); color: var(--text); font-family: system-ui, -apple-system, sans-serif; padding: 1.5rem; padding-bottom: 3rem; }
+    .container { max-width: 500px; margin: 0 auto; }
+    
+    .back-link { color: var(--muted); text-decoration: none; font-size: 0.9rem; display: inline-block; margin-bottom: 1.5rem; }
+    .back-link:hover { color: var(--text); }
+
+    h1 { font-size: 1.8rem; margin-bottom: 0.5rem; color: #fff; }
+    .subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.5; }
+
+    .course-card {
+      background-color: var(--card);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.2rem;
+      transition: transform 0.2s;
+    }
+    .course-card:hover { transform: translateY(-2px); border-color: var(--primary); }
+
+    .course-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+    .course-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.4; margin-bottom: 1rem; }
+    
+    .course-tags { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .tag { background: rgba(16, 185, 129, 0.15); color: var(--primary); font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 600; text-transform: uppercase; }
+
+    .btn-choose {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background-color: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 0.8rem;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .btn-choose:hover { background-color: var(--primary-hover); }
+    
+    .info-box {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 2rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">← Retour au site</a>
+    
+    <h1>Nos Formations</h1>
+    <p class="subtitle">Choisissez le programme qui correspond à vos besoins. Une fois votre choix fait, vous serez mis en relation avec notre formateur expert.</p>
+
+    <!-- Formation 1 -->
+    <div class="course-card">
+      <div class="course-tags">
+        <span class="tag">Santé</span>
+        <span class="tag">Débutant</span>
+      </div>
+      <h2 class="course-title">Décrypter les Fake News Santé</h2>
+      <p class="course-desc">Apprenez à reconnaître les fausses informations sur WhatsApp et les réseaux sociaux, et à vérifier vos sources de manière scientifique.</p>
+      <a href="https://wa.me/2250788482483?text=Bonjour,%20je%20suis%20intéressé(e)%20par%20la%20formation%20:Décrypter%20les%20Fake%20News%20Santé." target="_blank" class="btn-choose">Choisir cette formation</a>
+    </div>
+
+    <!-- Formation 2 -->
+    <div class="course-card">
+      <div class="course-tags">
+        <span class="tag">Informatique</span>
+        <span class="tag">Professionnel</span>
+      </div>
+      <h2 class="course-title">Bureautique & Gestion pour Cliniques</h2>
+      <p class="course-desc">Initiez-vous à Excel et aux outils numériques pour gérer les dossiers patients, les stocks de la pharmacie et les rendez-vous.</p>
+      <a href="https://wa.me/2250788482483?text=Bonjour,%20je%20suis%20intéressé(e)%20par%20la%20formation%20:Bureautique%20et%20Gestion%20pour%20Cliniques." target="_blank" class="btn-choose">Choisir cette formation</a>
+    </div>
+
+    <!-- Formation 3 -->
+    <div class="course-card">
+      <div class="course-tags">
+        <span class="tag">Public</span>
+        <span class="tag">Sensibilisation</span>
+      </div>
+      <h2 class="course-title">Initiation à la Santé Numérique</h2>
+      <p class="course-desc">Comment utiliser les applications de suivi de santé, comprendre la CNAM en ligne et protéger ses données personnelles.</p>
+      <a href="https://wa.me/2250788482483?text=Bonjour,%20je%20suis%20intéressé(e)%20par%20la%20formation%20:Initiation%20à%20la%20Santé%20Numérique." target="_blank" class="btn-choose">Choisir cette formation</a>
+    </div>
+
+    <div class="info-box">
+      Un doute sur la formation à choisir ? <br>
+      <a href="https://wa.me/2250788482483?text=Bonjour,%20j'ai%20besoin%20de%20conseils%20pour%20choisir%20ma%20formation." target="_blank" style="color: var(--primary); font-weight: bold; text-decoration: none;">Demandez conseil au formateur</a>
+    </div>
+
+  </div>
+</body>
+</html>
