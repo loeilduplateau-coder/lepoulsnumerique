@@ -21,13 +21,51 @@
       --green-bg: #f0fdf4; --green-border: #bbf7d0; --green-text: #166534;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background-color: var(--bg); color: var(--text); font-family: system-ui, sans-serif; padding-bottom: 2rem; overflow-x: hidden; }
+    body { background-color: var(--bg); color: var(--text); font-family: system-ui, sans-serif; padding-bottom: 2rem; overflow-x: hidden; scroll-behavior: smooth; }
     .container { width: 100%; max-width: 600px; margin: 0 auto; }
+
+    /* --- NOUVEAU : MENU LATÉRAL --- */
+    .sidebar {
+      height: 100%;
+      width: 0; /* Caché par défaut */
+      position: fixed;
+      z-index: 1000;
+      top: 0; left: 0;
+      background-color: #1e293b;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+    }
+    .sidebar a {
+      padding: 15px 25px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      color: #e2e8f0;
+      display: block;
+      transition: 0.2s;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .sidebar a:hover { background-color: #0f172a; color: #10b981; }
+    .sidebar .closebtn {
+      position: absolute;
+      top: 10px; right: 20px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+    }
+    .menu-btn {
+      background: none; border: none; cursor: pointer; color: white;
+      display: flex; align-items: center; justify-content: center;
+      padding: 5px; margin-right: 10px;
+    }
+    .menu-btn svg { width: 28px; height: 28px; fill: white; }
 
     /* EN-TÊTE */
     .header-weather { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 1.5rem 1.2rem 1.2rem 1.2rem; margin-bottom: 1rem; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2); display: flex; flex-direction: column; gap: 1.2rem; }
-    .header-top { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
-    .logo-container { display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .header-top { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; }
+    .header-logo-center { display: flex; flex-direction: column; align-items: center; flex-grow: 1; }
+    .logo-container { display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 0.5rem; }
     .logo-hand { width: 24px; height: 24px; fill: white; opacity: 0.8; }
     .logo-hand.right { transform: scaleX(-1); }
     .logo { font-size: 2rem; font-weight: 800; color: white; letter-spacing: -0.5px; line-height: 1; }
@@ -41,12 +79,14 @@
     @media (max-width: 600px) { .header-weather { border-radius: 0; } .content-wrapper { padding: 0 0.5rem; } }
     @media (min-width: 601px) { .header-weather { border-radius: 0 0 16px 16px; margin-top: 1rem; } .content-wrapper { padding: 0; } }
 
+    /* SECTIONS ET CARTES */
+    .section-target { scroll-margin-top: 20px; } /* Évite que le menu cache le titre de la section */
+    
     .tip-card { background-color: var(--yellow-bg); border: 1px solid var(--yellow-border); border-radius: 12px; padding: 1rem; margin-bottom: 1rem; display: flex; gap: 1rem; align-items: center; }
     .tip-image { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--yellow-border); background-color: #fff; flex-shrink: 0; }
     .tip-content h4 { color: var(--yellow-text); font-size: 0.9rem; margin-bottom: 0.2rem; }
     .tip-content p { font-size: 0.85rem; color: #713f12; line-height: 1.4; }
 
-    /* RECHERCHE */
     .search-box { background-color: var(--card); border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 1rem; }
     .form-group { margin-bottom: 1.2rem; }
     .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; }
@@ -54,18 +94,15 @@
     button.btn-primary { background-color: var(--primary); color: white; border: none; font-weight: 700; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
     button.btn-primary:hover { background-color: var(--primary-hover); }
 
-    /* LISTE DES RÉSULTATS */
     #results-list { display: none; margin-bottom: 1rem; }
     .result-item { background-color: var(--card); border: 1px solid #e2e8f0; border-radius: 12px; padding: 1rem; margin-bottom: 0.8rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
     .result-info h4 { font-size: 1rem; color: var(--text); margin-bottom: 0.2rem; }
     .result-info p { font-size: 0.8rem; color: var(--muted); }
     .btn-view { background-color: #dbeafe; color: #1d4ed8; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; width: auto; }
 
-    /* CARTE */
     #map-container { display: none; margin-bottom: 1rem; }
     #map { height: 300px; width: 100%; border-radius: 12px; border: 2px solid var(--primary); z-index: 1; }
 
-    /* RADIO */
     .radio-widget { background-color: var(--card); border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 1rem; text-align: center; }
     .radio-header { display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
     .radio-header h3 { font-size: 1.1rem; color: var(--text); }
@@ -74,10 +111,8 @@
     .radio-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
     .radio-btn { background-color: var(--purple); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 20px; font-weight: 700; cursor: pointer; transition: background 0.2s; width: auto; }
 
-    /* URGENCE */
     .emergency-btn { background-color: var(--alert); color: white; text-align: center; padding: 1rem; border-radius: 12px; text-decoration: none; font-weight: 700; display: block; margin-bottom: 1rem; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
 
-    /* --- BILAN SANTÉ GRAND PUBLIC --- */
     .public-tools-box { background-color: var(--green-bg); border: 1px solid var(--green-border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; }
     .public-tools-box h3 { color: var(--green-text); font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
     .calc-group-public { margin-bottom: 1.2rem; background-color: #ffffff; padding: 1rem; border-radius: 12px; border: 1px solid #dcfce7; }
@@ -86,7 +121,6 @@
     .btn-public { background-color: var(--primary); color: white; border: none; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 700; width: 100%; cursor: pointer; }
     .result-public { margin-top: 0.8rem; font-size: 0.9rem; font-weight: 700; color: var(--green-text); text-align: center; }
 
-    /* --- ESPACE PRO (SOIGNANTS) --- */
     .pro-tools-box { background-color: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; }
     .pro-tools-box h3 { color: var(--blue-text); font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
     .calc-group { margin-bottom: 1rem; }
@@ -95,7 +129,6 @@
     .btn-calc { background-color: #3b82f6; color: white; border: none; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 700; width: 100%; cursor: pointer; }
     .calc-result { margin-top: 1rem; padding: 1rem; background-color: #fff; border-radius: 8px; border: 1px dashed #93c5fd; text-align: center; font-weight: 700; color: #1e3a8a; font-size: 1.1rem; }
 
-    /* PROMO */
     .promo-box { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; border-radius: 12px; padding: 1.2rem; text-align: center; }
     .promo-box h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
     .promo-box p { font-size: 0.85rem; color: #94a3b8; margin-bottom: 1rem; }
@@ -104,16 +137,37 @@
 </head>
 <body>
 
+  <!-- NOUVEAU : MENU LATÉRAL -->
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()">×</a>
+    <a href="#section-recherche" onclick="toggleNav()">📍 Trouver un soin</a>
+    <a href="#section-radio" onclick="toggleNav()">📻 Radio Djoloba</a>
+    <a href="#section-public" onclick="toggleNav()">❤️ Bilan santé</a>
+    <a href="#section-pro" onclick="toggleNav()">🩺 Outils soignants</a>
+    <a href="#section-urgence" onclick="toggleNav()">🚨 Urgences</a>
+  </div>
+
   <div class="container">
     <div class="header-weather">
       <div class="header-top">
-        <div class="logo-container">
-          <svg class="logo-hand" viewBox="0 0 24 24"><path d="M12.5 2.5a2 2 0 0 0-2 2v5.5a.5.5 0 0 1-1 0v-4a2 2 0 0 0-4 0v7.5a5.5 5.5 0 0 0 5.5 5.5h1a6 6 0 0 0 6-6v-3.5a2 2 0 0 0-4 0v1a.5.5 0 0 1-1 0V4.5a2 2 0 0 0-2-2z" /></svg>
-          <div class="logo">Djolo<span>ba</span></div>
-          <svg class="logo-hand right" viewBox="0 0 24 24"><path d="M12.5 2.5a2 2 0 0 0-2 2v5.5a.5.5 0 0 1-1 0v-4a2 2 0 0 0-4 0v7.5a5.5 5.5 0 0 0 5.5 5.5h1a6 6 0 0 0 6-6v-3.5a2 2 0 0 0-4 0v1a.5.5 0 0 1-1 0V4.5a2 2 0 0 0-2-2z" /></svg>
+        <!-- Bouton Hamburger -->
+        <button class="menu-btn" onclick="toggleNav()">
+          <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        </button>
+        
+        <div class="header-logo-center">
+          <div class="logo-container">
+            <svg class="logo-hand" viewBox="0 0 24 24"><path d="M12.5 2.5a2 2 0 0 0-2 2v5.5a.5.5 0 0 1-1 0v-4a2 2 0 0 0-4 0v7.5a5.5 5.5 0 0 0 5.5 5.5h1a6 6 0 0 0 6-6v-3.5a2 2 0 0 0-4 0v1a.5.5 0 0 1-1 0V4.5a2 2 0 0 0-2-2z" /></svg>
+            <div class="logo">Djolo<span>ba</span></div>
+            <svg class="logo-hand right" viewBox="0 0 24 24"><path d="M12.5 2.5a2 2 0 0 0-2 2v5.5a.5.5 0 0 1-1 0v-4a2 2 0 0 0-4 0v7.5a5.5 5.5 0 0 0 5.5 5.5h1a6 6 0 0 0 6-6v-3.5a2 2 0 0 0-4 0v1a.5.5 0 0 1-1 0V4.5a2 2 0 0 0-2-2z" /></svg>
+          </div>
+          <div class="badge-ci">🇨🇮 Santé</div>
         </div>
-        <div class="badge-ci">🇨🇮 Santé en Côte d'Ivoire</div>
+        
+        <!-- Espace vide pour équilibrer le flexbox -->
+        <div style="width: 38px;"></div>
       </div>
+      
       <div class="weather-info-row" id="weather-widget" style="display: none;">
         <div class="weather-text"><h4>Météo à Abidjan</h4><p id="weather-desc">...</p></div>
         <div class="weather-temp" id="weather-temp">--°C</div>
@@ -129,7 +183,8 @@
         </div>
       </div>
 
-      <div class="search-box">
+      <!-- SECTION RECHERCHE -->
+      <div id="section-recherche" class="search-box section-target">
         <div class="form-group">
           <label>Que cherchez-vous ?</label>
           <select id="typeEtablissement">
@@ -139,8 +194,8 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Votre quartier / ville (Saisissez à la main)</label>
-          <input type="text" id="zoneRecherche" placeholder="Ex: Cocody, Plateau, Yopougon..." value="Cocody">
+          <label>Votre quartier / ville</label>
+          <input type="text" id="zoneRecherche" placeholder="Ex: Cocody, Plateau..." value="Cocody">
         </div>
         <button class="btn-primary" onclick="chercherEtablissement()">Trouver maintenant</button>
       </div>
@@ -148,17 +203,21 @@
       <div id="results-list"></div>
       <div id="map-container"><div id="map"></div></div>
 
-      <div class="radio-widget">
+      <!-- SECTION RADIO -->
+      <div id="section-radio" class="radio-widget section-target">
         <div class="radio-header"><span class="live-dot"></span><h3>Radio Djoloba</h3></div>
         <p class="radio-desc">La chronique santé du jour (2 min)</p>
         <audio id="audioPlayer" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
         <button class="radio-btn" id="playBtn" onclick="togglePlay()">▶ Écouter la chronique</button>
       </div>
 
-      <a href="tel:185" class="emergency-btn"><span>🚨</span> Appeler le SAMU (185)</a>
+      <!-- SECTION URGENCE -->
+      <div id="section-urgence" class="section-target">
+        <a href="tel:185" class="emergency-btn"><span>🚨</span> Appeler le SAMU (185)</a>
+      </div>
 
-      <!-- BILAN GRAND PUBLIC -->
-      <div class="public-tools-box">
+      <!-- SECTION BILAN GRAND PUBLIC -->
+      <div id="section-public" class="public-tools-box section-target">
         <h3>❤️ Mon bilan santé rapide</h3>
         <div class="calc-group-public">
           <label>💧 Quelle quantité d'eau boire par jour ?</label>
@@ -174,8 +233,8 @@
         </div>
       </div>
 
-      <!-- ESPACE PRO -->
-      <div class="pro-tools-box">
+      <!-- SECTION PRO -->
+      <div id="section-pro" class="pro-tools-box section-target">
         <h3>🩺 Outils pour les soignants</h3>
         <p style="font-size: 0.8rem; color: #475569; margin-bottom: 1rem;">Un accès réservé aux professionnels de santé partenaires.</p>
         <div class="calc-group">
@@ -199,6 +258,16 @@
   </div>
 
   <script>
+    // --- MENU LATÉRAL ---
+    function toggleNav() {
+      const sidebar = document.getElementById("mySidebar");
+      if (sidebar.style.width === "250px") {
+        sidebar.style.width = "0";
+      } else {
+        sidebar.style.width = "250px";
+      }
+    }
+
     // --- MÉTÉO ---
     fetch('https://api.open-meteo.com/v1/forecast?latitude=5.30966&longitude=-4.01266&current_weather=true')
       .then(res => res.json())
