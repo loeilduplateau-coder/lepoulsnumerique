@@ -40,7 +40,7 @@
       font-size: 30px; color: white; cursor: pointer;
     }
 
-    /* --- NOUVEL EN-TÊTE MODERNE --- */
+    /* --- EN-TÊTE MODERNE --- */
     .header-weather { 
       background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); 
       color: white; 
@@ -57,16 +57,52 @@
       justify-content: space-between; 
       align-items: center; 
       width: 100%; 
+      /* On colle le bouton bien à gauche */
+      padding-left: 0; 
     }
 
+    /* --- NOUVEAU BOUTON MENU (ROND ET RESPIRANT) --- */
     .menu-btn {
-      background: rgba(255,255,255,0.1); border: none; cursor: pointer; color: white;
-      display: flex; align-items: center; justify-content: center;
-      padding: 8px; border-radius: 10px; transition: background 0.2s;
+      background: rgba(255,255,255,0.15); 
+      border: none; 
+      cursor: pointer; 
+      color: white;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      width: 40px; 
+      height: 40px; 
+      border-radius: 50%; /* Le rend parfaitement rond */
+      transition: all 0.3s ease;
+      flex-shrink: 0; /* Empêche le bouton de rétrécir */
+      
+      /* L'animation de respiration */
+      animation: breathe 3s infinite ease-in-out; 
     }
-    .menu-btn:hover { background: rgba(255,255,255,0.2); }
-    .menu-btn svg { width: 24px; height: 24px; fill: white; }
 
+    /* L'effet au survol (ou au toucher) */
+    .menu-btn:hover, .menu-btn:active {
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.1);
+      animation: none; /* On arrête de respirer quand on clique */
+    }
+
+    /* L'animation de respiration douce */
+    @keyframes breathe {
+      0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+    }
+
+    .menu-btn svg { 
+      width: 20px; 
+      height: 20px; 
+      fill: white; 
+      /* On décale très légèrement les traits pour qu'ils paraissent parfaitement centrés visuellement */
+      margin-left: -2px; 
+    }
+
+    /* Logo et Badge */
     .logo { font-size: 1.6rem; font-weight: 800; color: white; letter-spacing: -0.5px; line-height: 1; margin: 0; }
     .logo span { color: #93c5fd; }
     
@@ -96,9 +132,8 @@
     @media (max-width: 600px) { .header-weather { border-radius: 0; } .content-wrapper { padding: 0 0.5rem; } }
     @media (min-width: 601px) { .header-weather { border-radius: 0 0 16px 16px; margin-top: 1rem; } .content-wrapper { padding: 0; } }
 
+    /* --- LE RESTE DU DESIGN EST IDENTIQUE --- */
     .section-target { scroll-margin-top: 20px; }
-    
-    /* --- CARTES --- */
     .tip-card { background-color: var(--yellow-bg); border: 1px solid var(--yellow-border); border-radius: 16px; padding: 1rem; margin-bottom: 1rem; display: flex; gap: 1rem; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
     .tip-image { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--yellow-border); background-color: #fff; flex-shrink: 0; }
     .tip-content h4 { color: var(--yellow-text); font-size: 0.9rem; margin-bottom: 0.2rem; }
@@ -169,6 +204,7 @@
     <!-- EN-TÊTE MODERNE -->
     <div class="header-weather">
       <div class="header-top">
+        <!-- Le bouton rond qui respire -->
         <button class="menu-btn" onclick="toggleNav()">
           <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
         </button>
