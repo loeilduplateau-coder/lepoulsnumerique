@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Djoloba - La santé à portée de main</title>
+  <meta name="description" content="Trouvez une pharmacie de garde, un hôpital ou une clinique en Côte d'Ivoire." />
   
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#10b981" />
@@ -16,6 +17,8 @@
       --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --muted: #64748b;
       --primary: #10b981; --primary-hover: #059669; --alert: #ef4444;
       --purple: #8b5cf6; --yellow-bg: #fefce8; --yellow-border: #fef08a; --yellow-text: #854d0e;
+      --blue-bg: #eff6ff; --blue-border: #bfdbfe; --blue-text: #1e3a8a;
+      --green-bg: #f0fdf4; --green-border: #bbf7d0; --green-text: #166534;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background-color: var(--bg); color: var(--text); font-family: system-ui, sans-serif; padding-bottom: 2rem; overflow-x: hidden; }
@@ -35,9 +38,9 @@
     .weather-text p { font-size: 1rem; font-weight: 500; }
     .weather-temp { font-size: 2rem; font-weight: 800; line-height: 1; }
 
-    /* DESIGN RESTANT */
     @media (max-width: 600px) { .header-weather { border-radius: 0; } .content-wrapper { padding: 0 0.5rem; } }
     @media (min-width: 601px) { .header-weather { border-radius: 0 0 16px 16px; margin-top: 1rem; } .content-wrapper { padding: 0; } }
+
     .tip-card { background-color: var(--yellow-bg); border: 1px solid var(--yellow-border); border-radius: 12px; padding: 1rem; margin-bottom: 1rem; display: flex; gap: 1rem; align-items: center; }
     .tip-image { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--yellow-border); background-color: #fff; flex-shrink: 0; }
     .tip-content h4 { color: var(--yellow-text); font-size: 0.9rem; margin-bottom: 0.2rem; }
@@ -51,41 +54,18 @@
     button.btn-primary { background-color: var(--primary); color: white; border: none; font-weight: 700; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
     button.btn-primary:hover { background-color: var(--primary-hover); }
 
-    /* NOUVEAU : LISTE DES RÉSULTATS */
-    #results-list {
-      display: none;
-      margin-bottom: 1rem;
-    }
-    .result-item {
-      background-color: var(--card);
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 1rem;
-      margin-bottom: 0.8rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    }
+    /* LISTE DES RÉSULTATS */
+    #results-list { display: none; margin-bottom: 1rem; }
+    .result-item { background-color: var(--card); border: 1px solid #e2e8f0; border-radius: 12px; padding: 1rem; margin-bottom: 0.8rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
     .result-info h4 { font-size: 1rem; color: var(--text); margin-bottom: 0.2rem; }
     .result-info p { font-size: 0.8rem; color: var(--muted); }
-    .btn-view {
-      background-color: #dbeafe;
-      color: #1d4ed8;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      cursor: pointer;
-      width: auto;
-    }
+    .btn-view { background-color: #dbeafe; color: #1d4ed8; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; width: auto; }
 
     /* CARTE */
     #map-container { display: none; margin-bottom: 1rem; }
     #map { height: 300px; width: 100%; border-radius: 12px; border: 2px solid var(--primary); z-index: 1; }
 
-    /* AUTRES */
+    /* RADIO */
     .radio-widget { background-color: var(--card); border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 1rem; text-align: center; }
     .radio-header { display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
     .radio-header h3 { font-size: 1.1rem; color: var(--text); }
@@ -93,7 +73,29 @@
     @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
     .radio-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
     .radio-btn { background-color: var(--purple); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 20px; font-weight: 700; cursor: pointer; transition: background 0.2s; width: auto; }
+
+    /* URGENCE */
     .emergency-btn { background-color: var(--alert); color: white; text-align: center; padding: 1rem; border-radius: 12px; text-decoration: none; font-weight: 700; display: block; margin-bottom: 1rem; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
+
+    /* --- BILAN SANTÉ GRAND PUBLIC --- */
+    .public-tools-box { background-color: var(--green-bg); border: 1px solid var(--green-border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; }
+    .public-tools-box h3 { color: var(--green-text); font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .calc-group-public { margin-bottom: 1.2rem; background-color: #ffffff; padding: 1rem; border-radius: 12px; border: 1px solid #dcfce7; }
+    .calc-group-public label { display: block; font-size: 0.85rem; font-weight: 600; color: #334155; margin-bottom: 0.5rem; }
+    .calc-group-public input { border: 1px solid #86efac; margin-bottom: 0.5rem; }
+    .btn-public { background-color: var(--primary); color: white; border: none; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 700; width: 100%; cursor: pointer; }
+    .result-public { margin-top: 0.8rem; font-size: 0.9rem; font-weight: 700; color: var(--green-text); text-align: center; }
+
+    /* --- ESPACE PRO (SOIGNANTS) --- */
+    .pro-tools-box { background-color: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; }
+    .pro-tools-box h3 { color: var(--blue-text); font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .calc-group { margin-bottom: 1rem; }
+    .calc-group label { display: block; font-size: 0.8rem; font-weight: 600; color: #334155; margin-bottom: 0.3rem; }
+    .calc-group input { border: 1px solid #93c5fd; background-color: #fff; }
+    .btn-calc { background-color: #3b82f6; color: white; border: none; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 700; width: 100%; cursor: pointer; }
+    .calc-result { margin-top: 1rem; padding: 1rem; background-color: #fff; border-radius: 8px; border: 1px dashed #93c5fd; text-align: center; font-weight: 700; color: #1e3a8a; font-size: 1.1rem; }
+
+    /* PROMO */
     .promo-box { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; border-radius: 12px; padding: 1.2rem; text-align: center; }
     .promo-box h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
     .promo-box p { font-size: 0.85rem; color: #94a3b8; margin-bottom: 1rem; }
@@ -113,10 +115,7 @@
         <div class="badge-ci">🇨🇮 Santé en Côte d'Ivoire</div>
       </div>
       <div class="weather-info-row" id="weather-widget" style="display: none;">
-        <div class="weather-text">
-          <h4>Météo à Abidjan</h4>
-          <p id="weather-desc">Chargement...</p>
-        </div>
+        <div class="weather-text"><h4>Météo à Abidjan</h4><p id="weather-desc">...</p></div>
         <div class="weather-temp" id="weather-temp">--°C</div>
       </div>
     </div>
@@ -141,33 +140,55 @@
         </div>
         <div class="form-group">
           <label>Votre quartier / ville (Saisissez à la main)</label>
-          <!-- Le champ select est remplacé par un input text -->
           <input type="text" id="zoneRecherche" placeholder="Ex: Cocody, Plateau, Yopougon..." value="Cocody">
         </div>
         <button class="btn-primary" onclick="chercherEtablissement()">Trouver maintenant</button>
       </div>
 
-      <!-- NOUVEAU : LISTE TEXTUELLE DES RÉSULTATS -->
       <div id="results-list"></div>
-
-      <!-- CARTE -->
-      <div id="map-container">
-        <div id="map"></div>
-      </div>
+      <div id="map-container"><div id="map"></div></div>
 
       <div class="radio-widget">
-        <div class="radio-header">
-          <span class="live-dot"></span> 
-          <h3>Radio Djoloba</h3>
-        </div>
+        <div class="radio-header"><span class="live-dot"></span><h3>Radio Djoloba</h3></div>
         <p class="radio-desc">La chronique santé du jour (2 min)</p>
         <audio id="audioPlayer" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
         <button class="radio-btn" id="playBtn" onclick="togglePlay()">▶ Écouter la chronique</button>
       </div>
 
-      <a href="tel:185" class="emergency-btn">
-        <span>🚨</span> Appeler le SAMU (185)
-      </a>
+      <a href="tel:185" class="emergency-btn"><span>🚨</span> Appeler le SAMU (185)</a>
+
+      <!-- BILAN GRAND PUBLIC -->
+      <div class="public-tools-box">
+        <h3>❤️ Mon bilan santé rapide</h3>
+        <div class="calc-group-public">
+          <label>💧 Quelle quantité d'eau boire par jour ?</label>
+          <input type="number" id="poids-eau" placeholder="Votre poids en kg (ex: 60)">
+          <button class="btn-public" onclick="calculerEau()">Calculer</button>
+          <div class="result-public" id="resultat-eau" style="display:none;"></div>
+        </div>
+        <div class="calc-group-public">
+          <label>🏃 Fréquence cardiaque max (pour le sport)</label>
+          <input type="number" id="age-sport" placeholder="Votre âge (ex: 25)">
+          <button class="btn-public" onclick="calculerFC()">Calculer</button>
+          <div class="result-public" id="resultat-fc" style="display:none;"></div>
+        </div>
+      </div>
+
+      <!-- ESPACE PRO -->
+      <div class="pro-tools-box">
+        <h3>🩺 Outils pour les soignants</h3>
+        <p style="font-size: 0.8rem; color: #475569; margin-bottom: 1rem;">Un accès réservé aux professionnels de santé partenaires.</p>
+        <div class="calc-group">
+          <label>Poids du patient (kg)</label>
+          <input type="number" id="poids" placeholder="Ex: 70">
+        </div>
+        <div class="calc-group">
+          <label>Taille du patient (cm)</label>
+          <input type="number" id="taille" placeholder="Ex: 175">
+        </div>
+        <button class="btn-calc" onclick="calculerIMC()">Calculer l'IMC</button>
+        <div class="calc-result" id="resultat-imc" style="display:none;"></div>
+      </div>
 
       <div class="promo-box">
         <h3>Envie d'en savoir plus sur votre santé ?</h3>
@@ -178,7 +199,7 @@
   </div>
 
   <script>
-    // MÉTÉO
+    // --- MÉTÉO ---
     fetch('https://api.open-meteo.com/v1/forecast?latitude=5.30966&longitude=-4.01266&current_weather=true')
       .then(res => res.json())
       .then(data => {
@@ -193,7 +214,7 @@
         document.getElementById('weather-widget').style.display = 'flex';
       }).catch(e => console.log(e));
 
-    // CONSEIL DU JOUR
+    // --- CONSEIL DU JOUR ---
     const tipsData = [
       { texte: "Buvez au moins 1,5L d'eau par jour pour éviter la déshydratation.", image: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=150&h=150&fit=crop" },
       { texte: "Dormez sous une moustiquaire imprégnée pour éviter le paludisme.", image: "https://images.unsplash.com/photo-1599818817847-39b507edaa2e?w=150&h=150&fit=crop" },
@@ -204,7 +225,7 @@
     document.getElementById('daily-tip').innerText = randomTip.texte;
     document.getElementById('tip-image').src = randomTip.image;
 
-    // RADIO
+    // --- RADIO ---
     const audio = document.getElementById('audioPlayer');
     const playBtn = document.getElementById('playBtn');
     function togglePlay() {
@@ -219,11 +240,10 @@
       }
     }
 
-    // CARTE & RECHERCHE
+    // --- CARTE ET RECHERCHE ---
     let map = null; 
-    let markers = []; // On stocke les marqueurs pour les réutiliser
+    let markers = []; 
 
-    // Fausse base de données pour la démo
     const baseDonnees = [
       { id: 1, nom: "Pharmacie du Plateau", quartier: "Plateau", lat: 5.324, lng: -4.018 },
       { id: 2, nom: "Pharmacie de Cocody", quartier: "Cocody", lat: 5.355, lng: -3.990 },
@@ -236,13 +256,10 @@
       const type = document.getElementById('typeEtablissement').value;
       const zone = document.getElementById('zoneRecherche').value.toLowerCase().trim();
       
-      // 1. Filtrer les résultats (Simulation)
-      // Si la zone est vide, on affiche tout. Sinon on cherche le mot tapé.
       const resultats = baseDonnees.filter(item => {
         return item.quartier.toLowerCase().includes(zone) || zone === "";
       });
 
-      // 2. Afficher ou masquer la carte et la liste
       const mapContainer = document.getElementById('map-container');
       const resultsList = document.getElementById('results-list');
       
@@ -253,7 +270,6 @@
         return;
       }
 
-      // 3. Mettre à jour la liste de texte
       resultsList.innerHTML = "";
       resultats.forEach(item => {
         const div = document.createElement('div');
@@ -269,10 +285,8 @@
       });
       resultsList.style.display = 'block';
 
-      // 4. Initialiser et mettre à jour la carte
       mapContainer.style.display = 'block';
       
-      // Un petit délai permet à la div de s'afficher avant que la carte ne se dessine
       setTimeout(() => {
         if (!map) {
           map = L.map('map').setView([5.345, -4.024], 12); 
@@ -281,37 +295,83 @@
           }).addTo(map);
         }
 
-        // Effacer les anciens marqueurs
         markers.forEach(m => map.removeLayer(m));
         markers = [];
 
-        // Ajouter les nouveaux
         resultats.forEach(item => {
           const marker = L.marker([item.lat, item.lng]).addTo(map).bindPopup(`<b>${item.nom}</b>`);
-          // On attache l'ID du marqueur pour pouvoir le retrouver
           marker.customId = item.id; 
           markers.push(marker);
         });
 
-        map.invalidateSize(); // Force la carte à bien se redessiner
-        map.setView([5.345, -4.024], 12); // Recentre sur Abidjan
+        map.invalidateSize(); 
+        map.setView([5.345, -4.024], 12); 
       }, 100);
     }
 
-    // Fonction quand on clique sur "Voir sur la carte" dans la liste
     function centrerSurMarqueur(id) {
       const marker = markers.find(m => m.customId === id);
       if (marker && map) {
-        // La carte "vole" jusqu'au marqueur avec un zoom
         map.flyTo(marker.getLatLng(), 15, { duration: 1.5 });
-        // Ouvre la bulle d'info
         marker.openPopup();
-        // Remonte l'écran vers la carte
         document.getElementById('map').scrollIntoView({ behavior: 'smooth' });
       }
     }
 
-    // PWA
+    // --- CALCULS GRAND PUBLIC ---
+    function calculerEau() {
+      const poids = parseFloat(document.getElementById('poids-eau').value);
+      const resDiv = document.getElementById('resultat-eau');
+      if (isNaN(poids) || poids <= 0) {
+        resDiv.style.display = 'block';
+        resDiv.innerText = "Entrez un poids valide.";
+        return;
+      }
+      const litres = (poids * 35 / 1000).toFixed(1);
+      resDiv.style.display = 'block';
+      resDiv.innerText = "Vous devriez boire environ " + litres + " Litres d'eau par jour.";
+    }
+
+    function calculerFC() {
+      const age = parseFloat(document.getElementById('age-sport').value);
+      const resDiv = document.getElementById('resultat-fc');
+      if (isNaN(age) || age <= 0) {
+        resDiv.style.display = 'block';
+        resDiv.innerText = "Entrez un âge valide.";
+        return;
+      }
+      const fcMax = 220 - age;
+      resDiv.style.display = 'block';
+      resDiv.innerText = "Votre fréquence cardiaque max est de " + fcMax + " battements/minute.";
+    }
+
+    // --- CALCUL PRO (IMC) ---
+    function calculerIMC() {
+      const poids = parseFloat(document.getElementById('poids').value);
+      const tailleCm = parseFloat(document.getElementById('taille').value);
+      const resultatDiv = document.getElementById('resultat-imc');
+      
+      if (isNaN(poids) || isNaN(tailleCm) || poids <= 0 || tailleCm <= 0) {
+        resultatDiv.style.display = 'block';
+        resultatDiv.style.color = '#ef4444';
+        resultatDiv.innerHTML = "Veuillez entrer des valeurs valides.";
+        return;
+      }
+      const tailleM = tailleCm / 100;
+      const imc = (poids / (tailleM * tailleM)).toFixed(1);
+      
+      let interpretation = ""; let couleur = "";
+      if (imc < 18.5) { interpretation = "Insuffisance pondérale"; couleur = "#3b82f6"; }
+      else if (imc >= 18.5 && imc < 25) { interpretation = "Corpulence normale"; couleur = "#10b981"; }
+      else if (imc >= 25 && imc < 30) { interpretation = "Surpoids"; couleur = "#f59e0b"; }
+      else { interpretation = "Obésité"; couleur = "#ef4444"; }
+
+      resultatDiv.style.display = 'block';
+      resultatDiv.style.color = couleur;
+      resultatDiv.innerHTML = "IMC : " + imc + " (" + interpretation + ")";
+    }
+
+    // --- PWA ---
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
     }
