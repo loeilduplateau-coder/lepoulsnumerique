@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Webtoon - L'Ombre de WhatsApp</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #121212;
+      --bg-panel: #1e1e24;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent: #f97316;
+      --bubble-bg: #ffffff;
+      --bubble-text: #1e293b;
+      --doc-bubble: #10b981;
+      --warning-bubble: #ef4444;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: 'Nunito', system-ui, sans-serif;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .webtoon-container {
+      width: 100%;
+      max-width: 600px;
+      background-color: var(--bg-panel);
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+      padding-bottom: 3rem;
+    }
+
+    /* En-tête moderne */
+    .header-title {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      color: white;
+      font-size: 1.4rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+      position: relative;
+      z-index: 20;
+    }
+
+    /* Structure d'une case */
+    .panel {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border-bottom: 8px solid var(--bg-main);
+      background-color: #000;
+    }
+
+    /* Zone de narration (au-dessus de l'image) */
+    .narration {
+      background-color: rgba(30, 30, 36, 0.95);
+      color: var(--text-muted);
+      padding: 12px 20px;
+      font-size: 0.85rem;
+      font-style: italic;
+      border-left: 4px solid var(--accent);
+      z-index: 10;
+    }
+
+    /* Conteneur de l'image */
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 350px;
+    }
+
+    .image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Bulles de dialogue modernes */
+    .speech-bubble {
+      position: absolute;
+      background: var(--bubble-bg);
+      color: var(--bubble-text);
+      padding: 14px 18px;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      max-width: 75%;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      line-height: 1.4;
+      z-index: 10;
+    }
+
+    /* La petite queue de la bulle */
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 25px;
+      border-width: 12px 12px 0 0;
+      border-style: solid;
+      border-color: var(--bubble-bg) transparent transparent transparent;
+    }
+
+    /* Positionnement des bulles */
+    .top-right { top: 20px; right: 15px; }
+    .bottom-left { bottom: 25px; left: 15px; }
+    .bottom-right { bottom: 25px; right: 15px; }
+
+    /* Styles spécifiques pour les personnages */
+    .bubble-doc {
+      background: var(--doc-bubble);
+      color: white;
+    }
+    .bubble-doc::after {
+      border-color: var(--doc-bubble) transparent transparent transparent;
+    }
+
+    .bubble-warning {
+      background: var(--warning-bubble);
+      color: white;
+    }
+    .bubble-warning::after {
+      border-color: var(--warning-bubble) transparent transparent transparent;
+    }
+
+    /* Pied de page */
+    .footer-msg {
+      text-align: center;
+      padding: 3rem 1rem 1rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    
+    .footer-msg strong {
+      color: var(--accent);
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="webtoon-container">
+    <h1 class="header-title">L'Ombre de WhatsApp</h1>
+
+    <!-- CASE 1 -->
+    <div class="panel">
+      <div class="narration">Abidjan, 22h. Fatiguée, Awa scrolle sur son téléphone...</div>
+      <div class="image-wrapper">
+        <img src="assets/case1.jpg" alt="Awa sur son téléphone">
+        <div class="speech-bubble top-right">
+          « Incroyable ! Cette tisane guérit la fièvre en 1 jour, partage à 10 amis ! » 🤯
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 2 -->
+    <div class="panel">
+      <div class="narration">Elle se dit qu'elle va essayer au lieu d'aller à la clinique...</div>
+      <div class="image-wrapper">
+        <img src="assets/case2.jpg" alt="Tisane">
+        <div class="speech-bubble bottom-left">
+          C'est sûr, ça vient de mon quartier, c'est naturel !
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 3 -->
+    <div class="panel">
+      <div class="narration">Le lendemain, son amie pharmacienne passe la voir...</div>
+      <div class="image-wrapper">
+        <img src="assets/case3.jpg" alt="Pharmacienne">
+        <div class="speech-bubble top-right bubble-doc">
+          Awa ! Attends ! Ne bois pas ça. Le vrai problème, c'est le paludisme. Il faut un vrai test !
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 4 -->
+    <div class="panel">
+      <div class="narration">Awa a compris. Elle est allée à la pharmacie de garde grâce à l'application Djoloba...</div>
+      <div class="image-wrapper">
+        <img src="assets/case4.jpg" alt="Pharmacie">
+        <div class="speech-bubble bottom-right bubble-warning">
+          La prochaine fois, je vérifie l'info avant de boire n'importe quoi !
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-msg">
+      <strong>À suivre...</strong>
+      <em>Un webtoon éducatif proposé par Le Pouls Numérique.</em>
+    </div>
+  </div>
+
+</body>
+</html>
