@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Vrai ou Faux Santé</title>
+  <style>
+    :root {
+      --bg: #0f172a; --card: #1e293b; --text: #e2e8f0;
+      --primary: #3b82f6; --success: #10b981; --danger: #ef4444; --accent: #f97316;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    
+    body { 
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); 
+      color: var(--text); 
+      min-height: 100vh; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      padding: 1.5rem; 
+    }
+    
+    .game-container {
+      width: 100%; max-width: 480px; background-color: var(--card);
+      border-radius: 24px; padding: 2rem; text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+    }
+
+    /* Animation de secousse pour mauvaise réponse */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+    .shake { animation: shake 0.5s; }
+
+    /* Animation de rebond pour bonne réponse */
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .bounce { animation: bounce 0.5s; }
+
+    .close-btn {
+      position: absolute; top: 15px; right: 20px;
+      color: #94a3b8; font-size: 1.5rem; text-decoration: none;
+    }
+
+    .header h1 { font-size: 1.4rem; color: #fff; margin-bottom: 0.5rem; }
+    
+    /* Barre de progression */
+    .progress-container {
+      width: 100%; height: 8px; background-color: rgba(255,255,255,0.1);
+      border-radius: 10px; margin-bottom: 1.5rem; overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%; background-color: var(--primary); width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .question-box {
+      background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 16px;
+      margin-bottom: 1.5rem; min-height: 120px; display: flex; align-items: center; justify-content: center;
+    }
+    .question-text { font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+
+    .btn-group { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+    .btn-game {
+      flex: 1; padding: 1rem; border-radius: 12px; border: none;
+      font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: transform 0.1s;
+    }
+    .btn-game:active { transform: scale(0.95); }
+    .btn-vrai { background-color: var(--success); color: white; }
+    .btn-faux { background-color: var(--danger); color: white; }
+
+    .feedback { padding: 1rem; border-radius: 12px; font-weight: 600; display: none; margin-bottom: 1.5rem; text-align: left; }
+    .feedback.correct { background-color: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid var(--success); }
+    .feedback.incorrect { background-color: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid var(--danger); }
+    .explanation { font-size: 0.85rem; margin-top: 0.5rem; color: #cbd5e1; font-weight: normal; }
+
+    .next-btn { 
+      background-color: var(--primary); color: white; width: 100%; padding: 1rem; 
+      border-radius: 12px; border: none; font-weight: 700; cursor: pointer; display: none;
+      font-size: 1rem;
+    }
+
+    .score-display { font-size: 0.9rem; color: #94a3b8; margin-top: 1rem; font-weight: bold; }
+
+    .lead-form { display: none; margin-top: 1.5rem; text-align: left; background: rgba(249, 115, 22, 0.1); padding: 1.5rem; border-radius: 16px; border: 1px solid var(--accent); }
+    .lead-form h3 { color: var(--accent); font-size: 1.2rem; margin-bottom: 0.5rem; text-align: center; }
+    .lead-form p { font-size: 0.85rem; color: #cbd5e1; margin-bottom: 1rem; text-align: center; }
+    .lead-form input { width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #cbd5e1; margin-bottom: 0.8rem; font-size: 1rem; }
+    .lead-form button { width: 100%; background-color: var(--accent); color: white; padding: 0.8rem; border-radius: 8px; border: none; font-weight: 700; cursor: pointer; font-size: 1rem; }
+  </style>
+</head>
+<body>
+
+  <div class="game-container" id="game-container">
+    <a href="index.html" class="close-btn" title="Fermer le jeu">×</a>
+
+    <div class="header">
+      <h1>🧠 Le Vrai ou Faux Santé</h1>
+    </div>
+
+    <!-- Barre de progression -->
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <div class="question-box">
+      <div class="question-text" id="question">Chargement...</div>
+    </div>
+
+    <div class="btn-group" id="buttons">
+      <button class="btn-game btn-vrai" onclick="checkAnswer(true)">VRAI</button>
+      <button class="btn-game btn-faux" onclick="checkAnswer(false)">FAUX</button>
+    </div>
+
+    <div class="feedback" id="feedback">
+      <div id="feedback-title"></div>
+      <div class="explanation" id="feedback-desc"></div>
+    </div>
+
+    <button class="next-btn" id="next-btn" onclick="nextQuestion()">Question suivante ➔</button>
+
+    <div class="score-display" id="score-display">Score : 0 / 0</div>
+
+    <div class="lead-form" id="lead-form">
+      <h3>🎉 Félicitations !</h3>
+      <p>Laissez votre email pour recevoir vos résultats détaillés et les meilleurs conseils du Pouls Numérique.</p>
+      <form id="emailForm" onsubmit="submitEmail(event)">
+        <input type="email" id="emailInput" placeholder="Votre adresse email" required>
+        <button type="submit">Recevoir mes résultats</button>
+      </form>
+    </div>
+
+  </div>
+
+  <script>
+    // J'ai ajouté 2 nouvelles questions (7 au total)
+    const questions = [
+      { text: "Boire de l'eau citronnée à jeun guérit le paludisme.", answer: false, explanation: "Faux. Le citron ne tue pas le parasite. Seuls les médicaments prescrits par un médecin sont efficaces." },
+      { text: "La moustiquaire imprégnée est le moyen le plus efficace pour éviter les piqûres de moustiques la nuit.", answer: true, explanation: "Vrai. Dormir sous une moustiquaire imprégnée réduit considérablement le risque de paludisme." },
+      { text: "On peut arrêter un antibiotique dès qu'on se sent mieux.", answer: false, explanation: "Faux. Il faut toujours finir son traitement pour éviter que les bactéries ne deviennent résistantes." },
+      { text: "Les médicaments vendus au marché noir sont aussi fiables que ceux de la pharmacie.", answer: false, explanation: "Faux. Les médicaments de rue sont souvent contrefaits et peuvent être mortels." },
+      { text: "Se laver les mains régulièrement permet de prévenir les maladies diarrhéiques.", answer: true, explanation: "Vrai. Le lavage des mains est la première barrière contre de nombreuses infections." },
+      { text: "Boire beaucoup d'eau aide à prévenir les calculs rénaux.", answer: true, explanation: "Vrai. Une bonne hydratation permet de diluer les substances dans les urines et d'éviter la formation de calculs." },
+      { text: "Le stress n'a aucun impact sur la tension artérielle.", answer: false, explanation: "Faux. Le stress chronique peut faire augmenter la tension artérielle et fatiguer le cœur." }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let hasAnswered = false;
+
+    function loadQuestion() {
+      hasAnswered = false;
+      const q = questions[currentQuestion];
+      
+      // Mise à jour de la barre de progression
+      const progressPercent = ((currentQuestion) / questions.length) * 100;
+      document.getElementById('progress-bar').style.width = progressPercent + "%";
+
+      document.getElementById('question').innerText = q.text;
+      document.getElementById('feedback').style.display = 'none';
+      document.getElementById('next-btn').style.display = 'none';
+      document.getElementById('buttons').style.display = 'flex';
+      document.getElementById('score-display').innerText = `Score : ${score} / ${currentQuestion}`;
+    }
+
+    function checkAnswer(userAnswer) {
+      if (hasAnswered) return;
+      hasAnswered = true;
+
+      const q = questions[currentQuestion];
+      const feedbackBox = document.getElementById('feedback');
+      const feedbackTitle = document.getElementById('feedback-title');
+      const feedbackDesc = document.getElementById('feedback-desc');
+      const gameContainer = document.getElementById('game-container');
+
+      document.getElementById('buttons').style.display = 'none';
+      feedbackBox.style.display = 'block';
+
+      if (userAnswer === q.answer) {
+        score++;
+        feedbackBox.className = 'feedback correct';
+        feedbackTitle.innerText = "✅ Bonne réponse !";
+        // Animation de rebond
+        gameContainer.classList.add('bounce');
+        setTimeout(() => gameContainer.classList.remove('bounce'), 500);
+      } else {
+        feedbackBox.className = 'feedback incorrect';
+        feedbackTitle.innerText = "❌ Mauvaise réponse";
+        // Animation de secousse
+        gameContainer.classList.add('shake');
+        setTimeout(() => gameContainer.classList.remove('shake'), 500);
+      }
+
+      feedbackDesc.innerText = q.explanation;
+      document.getElementById('score-display').innerText = `Score : ${score} / ${currentQuestion + 1}`;
+      
+      const nextBtn = document.getElementById('next-btn');
+      nextBtn.style.display = 'block';
+      
+      // Mise à jour de la barre de progression à 100% si c'est la fin
+      if (currentQuestion === questions.length - 1) {
+        document.getElementById('progress-bar').style.width = "100%";
+        nextBtn.innerText = "Voir mon résultat final 🏆";
+      }
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        loadQuestion();
+      } else {
+        showFinalScore();
+      }
+    }
+
+    function showFinalScore() {
+      // Calcul du pourcentage de réussite
+      const percentage = (score / questions.length) * 100;
+      let message = "";
+      let color = "";
+
+      if (percentage === 100) { message = "Parfait ! Vous êtes un expert en santé !"; color = "var(--success)"; }
+      else if (percentage >= 70) { message = "Très bien ! Vous avez de bonnes bases."; color = "var(--success)"; }
+      else if (percentage >= 50) { message = "Pas mal, mais il y a encore des choses à apprendre."; color = "var(--accent)"; }
+      else { message = "Attention aux fake news ! Il faut se former."; color = "var(--danger)"; }
+
+      document.querySelector('.question-box').innerHTML = `
+        <div class="question-text">
+          Jeu terminé !<br><br>
+          Ton score : <span style="color:${color}; font-size: 2rem;">${score}/${questions.length}</span><br><br>
+          <span style="font-size: 0.9rem; color: #cbd5e1;">${message}</span>
+        </div>
+      `;
+      document.getElementById('feedback').style.display = 'none';
+      document.getElementById('next-btn').style.display = 'none';
+      document.getElementById('score-display').style.display = 'none';
+      document.getElementById('lead-form').style.display = 'block';
+    }
+
+    function submitEmail(event) {
+      event.preventDefault(); 
+      const email = document.getElementById('emailInput').value;
+      const substackUrl = `https://lepoulsnumerique.substack.com/subscribe?email=${encodeURIComponent(email)}`;
+      
+      document.getElementById('lead-form').innerHTML = `
+        <h3 style="color:var(--success);">✅ Merci !</h3>
+        <p>Redirection vers Le Pouls Numérique...</p>
+      `;
+      
+      setTimeout(() => {
+        window.location.href = substackUrl;
+      }, 1500);
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>
