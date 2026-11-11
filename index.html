@@ -4,6 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mariane — Le Pouls Numérique</title>
+  <meta name="description" content="Étudiante en médecine. Je décrypte la santé en Côte d'Ivoire à l'ère du numérique et je forme pour agir." />
+  
+  <!-- ========================================== -->
+  <!-- BALISES OPEN GRAPH (Pour WhatsApp, FB, LinkedIn) -->
+  <!-- ========================================== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://loeilduplateau-coder.github.io/lepoulsnumerique/" />
+  <meta property="og:title" content="Mariane | Le Pouls Numérique" />
+  <meta property="og:description" content="Décryptage de la santé en Côte d'Ivoire & Formations. Découvrez aussi l'application Djoloba et jouez à notre jeu interactif !" />
+  <!-- L'image qui s'affichera sur WhatsApp (utilise ta photo de profil ou le flyer) -->
+  <meta property="og:image" content="https://loeilduplateau-coder.github.io/lepoulsnumerique/assets/avatar.jpg" />
+
+  <!-- ========================================== -->
+  <!-- BALISES TWITTER CARD (Pour X) -->
+  <!-- ========================================== -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mariane | Le Pouls Numérique" />
+  <meta name="twitter:description" content="Décryptage de la santé en Côte d'Ivoire & Formations. Découvrez aussi l'application Djoloba et jouez à notre jeu interactif !" />
+  <meta name="twitter:image" content="https://loeilduplateau-coder.github.io/lepoulsnumerique/assets/avatar.jpg" />
+
+  <!-- ========================================== -->
+  <!-- RESTE DU CODE (CSS) -->
+  <!-- ========================================== -->
   <style>
     :root { 
       --bg: #0f172a; 
@@ -23,18 +46,16 @@
       min-height: 100vh;
     }
 
-    /* SUR MOBILE : Prend toute la largeur, le scroll est réactivé */
     .card { 
       width: 100%; 
       min-height: 100vh;
       background-color: #1e293b; 
-      padding: 2rem 1.2rem; /* Espacement global un peu plus aéré */
+      padding: 2rem 1.2rem; 
       text-align: center; 
       display: flex;
       flex-direction: column;
     }
 
-    /* SUR ORDINATEUR : Retour à la carte centrée */
     @media (min-width: 600px) {
       body { display: flex; justify-content: center; align-items: center; padding: 2rem; }
       .card { 
@@ -45,7 +66,6 @@
       }
     }
 
-    /* Photo remise à une taille normale */
     .avatar { 
       width: 110px; 
       height: 110px; 
@@ -84,12 +104,11 @@
       text-transform: uppercase; 
     }
 
-    /* Boutons principaux (Orange, Vert, Violet) */
     .btn { 
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 1rem; /* Taille confortable */
+      padding: 1rem; 
       border-radius: 12px; 
       text-decoration: none; 
       color: var(--text); 
@@ -97,22 +116,15 @@
       border: none; 
       font-weight: 600; 
       font-size: 1rem; 
-      margin-bottom: 0.8rem; /* Espace normal entre les gros boutons */
+      margin-bottom: 0.8rem; 
     }
 
     .btn.primary { background: var(--accent); color: #0f172a; font-weight: 800; font-size: 1.1rem; }
     .btn.formation { background: var(--green); color: #fff; font-weight: 800; font-size: 1.1rem; }
     .btn.game { background: #8b5cf6; color: white; font-weight: 800; font-size: 1.1rem; margin-bottom: 1.5rem; }
 
-    /* Groupe des réseaux sociaux */
-    .links { 
-      display: flex; 
-      flex-direction: column; 
-      gap: 0.4rem; /* Espace réduit entre les petits boutons */
-      margin-bottom: 1rem;
-    }
+    .links { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
     
-    /* Les petits boutons (TikTok, Insta...) plus compacts */
     .btn.small {
       padding: 0.7rem;
       font-size: 0.9rem;
@@ -123,7 +135,7 @@
       background-color: rgba(16, 185, 129, 0.1); 
       border: 2px solid #10b981; 
       color: #10b981; 
-      margin-top: 0.5rem; /* Un peu d'espace juste au-dessus de Djoloba */
+      margin-top: 0.5rem;
     }
 
     footer { margin-top: auto; padding-top: 1rem; }
@@ -161,7 +173,6 @@
 
     <div class="bottom-section">
       <div class="links">
-        <!-- J'ai ajouté la classe "small" ici pour réduire l'espace -->
         <a class="btn small" href="https://tiktok.com/@lepoulsnumerique" target="_blank">TikTok</a>
         <a class="btn small" href="https://instagram.com/lepoulsnumerique" target="_blank">Instagram</a>
         <a class="btn small" href="https://facebook.com/lepoulsnumerique" target="_blank">Facebook</a>
