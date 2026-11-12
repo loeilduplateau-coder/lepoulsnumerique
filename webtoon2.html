@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Webtoon - La Carte Mystère (CNAM)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #121212; --bg-panel: #1e1e24; --text-main: #f1f5f9;
+      --text-muted: #94a3b8; --accent: #10b981; --bubble-bg: #ffffff;
+      --bubble-text: #1e293b; --doc-bubble: #3b82f6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-main); color: var(--text-main);
+      font-family: 'Nunito', system-ui, sans-serif;
+      display: flex; justify-content: center; min-height: 100vh;
+    }
+
+    .webtoon-container {
+      width: 100%; max-width: 600px; background-color: var(--bg-panel);
+      box-shadow: 0 0 30px rgba(0,0,0,0.5); padding-bottom: 2rem;
+    }
+
+    /* Titre plus compact */
+    .header-title {
+      text-align: center; padding: 1rem; /* Réduit de 1.5 à 1rem */
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white; font-size: 1.2rem; /* Réduit de 1.4 à 1.2rem */
+      font-weight: 900; text-transform: uppercase; letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+      position: relative; z-index: 20;
+    }
+
+    .panel {
+      position: relative; display: flex; flex-direction: column;
+      border-bottom: 6px solid var(--bg-main); background-color: #000;
+    }
+
+    /* Narration plus discrète */
+    .narration {
+      background-color: rgba(30, 30, 36, 0.95); color: var(--text-muted);
+      padding: 10px 15px; font-size: 0.8rem; /* Réduit de 0.85 à 0.8rem */
+      font-style: italic; border-left: 4px solid var(--accent); z-index: 10;
+    }
+
+    .image-wrapper { position: relative; width: 100%; height: auto; background-color: #000; }
+    .image-wrapper img { width: 100%; height: auto; object-fit: contain; display: block; }
+
+    /* BULLES PLUS PETITES ET PLUS FINES */
+    .speech-bubble {
+      position: absolute; background: var(--bubble-bg); color: var(--bubble-text);
+      padding: 10px 14px; /* Réduit de 14/18 à 10/14 */
+      border-radius: 16px; /* Un peu moins rond */
+      font-size: 0.85rem; /* Réduit de 0.95 à 0.85rem */
+      font-weight: 700; max-width: 65%; /* Réduit de 75% à 65% pour prendre moins de place */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      line-height: 1.3; z-index: 10;
+    }
+
+    .speech-bubble::after {
+      content: ''; position: absolute; bottom: -8px; left: 20px;
+      border-width: 8px 8px 0 0; border-style: solid;
+      border-color: var(--bubble-bg) transparent transparent transparent;
+    }
+
+    /* POSITIONS SUR-MESURE POUR CHAQUE CASE */
+    /* Case 1 : En haut à gauche, pour ne pas cacher la femme à droite */
+    .bubble-1 { top: 15px; left: 10px; }
+    
+    /* Case 2 : En bas à gauche, pour laisser la main et la carte au centre */
+    .bubble-2 { bottom: 20px; left: 10px; }
+    
+    /* Case 3 : En bas à droite, pour ne pas cacher le visage du médecin à gauche */
+    .bubble-3 { bottom: 20px; right: 10px; }
+    
+    /* Case 4 : En haut à gauche, pour laisser le sourire, le portable et les médocs */
+    .bubble-4 { top: 15px; left: 10px; }
+
+    /* Styles spécifiques */
+    .bubble-doc { background: var(--doc-bubble); color: white; }
+    .bubble-doc::after { border-color: var(--doc-bubble) transparent transparent transparent; }
+
+    .bubble-success { background: var(--accent); color: white; }
+    .bubble-success::after { border-color: var(--accent) transparent transparent transparent; }
+
+    .footer-msg {
+      text-align: center; padding: 2rem 1rem 1rem 1rem;
+      color: var(--text-muted); font-size: 0.85rem;
+    }
+    .footer-msg strong { color: var(--accent); font-size: 1rem; display: block; margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body>
+
+  <div class="webtoon-container">
+    <h1 class="header-title">La Carte Mystère - Épisode 2</h1>
+
+    <!-- CASE 1 -->
+    <div class="panel">
+      <div class="narration">Awa est à la pharmacie. Elle a de la fièvre et le traitement coûte cher...</div>
+      <div class="image-wrapper">
+        <img src="assets/cnam1.jpg" alt="Discussion à la pharmacie">
+        <div class="speech-bubble bubble-1">
+          Ah bon ? 15 000 FCFA pour ces médicaments ? Je n'ai pas assez sur moi...
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 2 -->
+    <div class="panel">
+      <div class="narration">Le pharmacien lui pose une question inattendue...</div>
+      <div class="image-wrapper">
+        <img src="assets/cnam2.jpg" alt="Carte CNAM">
+        <div class="speech-bubble bubble-2 bubble-doc">
+          Vous avez votre carte CNAM ? Normalement, vous ne devriez payer qu'une petite partie !
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 3 -->
+    <div class="panel">
+      <div class="narration">Awa ne savait pas qu'elle pouvait utiliser sa carte ici, ni comment vérifier ses droits...</div>
+      <div class="image-wrapper">
+        <img src="assets/cnam3.jpg" alt="Explication CNAM">
+        <div class="speech-bubble bubble-3">
+          Je pensais que c'était juste pour l'hôpital public... Comment on fait pour voir si on est à jour ?
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 4 -->
+    <div class="panel">
+      <div class="narration">Grâce aux conseils du Pouls Numérique, Awa a vérifié ses droits sur son téléphone et a pu payer son traitement à moindre coût...</div>
+      <div class="image-wrapper">
+        <img src="assets/cnam4.jpg" alt="Awa soulagée avec ses médicaments">
+        <div class="speech-bubble bubble-4 bubble-success">
+          Incroyable ! J'ai payé 3 fois moins cher. Je dois dire à ma famille de vérifier sa CNAM !
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-msg">
+      <strong>À suivre...</strong>
+      <em>Un webtoon éducatif proposé par Le Pouls Numérique.</em>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Les Webtoons - Le Pouls Numérique</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a; --card: #1e293b; --text: #e2e8f0; --muted: #94a3b8;
+      --primary: #f97316; --accent: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background-color: var(--bg); color: var(--text); font-family: 'Nunito', sans-serif; padding: 1.5rem; display: flex; justify-content: center; }
+    
+    .container { width: 100%; max-width: 600px; }
+    
+    .header { text-align: center; margin-bottom: 2rem; }
+    .header h1 { font-size: 1.8rem; color: #fff; margin-bottom: 0.5rem; }
+    .header p { color: var(--muted); font-size: 0.95rem; }
+
+    .episode-grid { display: grid; gap: 1.5rem; }
+
+    .episode-card {
+      background-color: var(--card);
+      border-radius: 20px;
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--text);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+    }
+    .episode-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.15); }
+
+    .episode-cover {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    
+    /* Un dégradé sombre en bas de l'image pour que le texte soit lisible */
+    .episode-cover::after {
+      content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 50%;
+      background: linear-gradient(to top, var(--card), transparent);
+    }
+
+    .episode-info { padding: 1.5rem; position: relative; z-index: 2; }
+    .episode-number { color: var(--primary); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.3rem; display: block; }
+    .episode-title { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 0.5rem; }
+    .episode-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+    
+    .btn-read {
+      display: inline-block; background-color: var(--accent); color: #fff;
+      padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1>Nos Webtoons</h1>
+      <p>Des histoires courtes pour décrypter la santé au quotidien.</p>
+    </div>
+
+    <div class="episode-grid">
+      
+      <!-- ÉPISODE 1 -->
+      <a href="webtoon.html" class="episode-card">
+        <!-- On utilise l'image de la case 1 comme couverture -->
+        <div class="episode-cover" style="background-image: url('assets/case1.jpg');"></div>
+        <div class="episode-info">
+          <span class="episode-number">Épisode 1</span>
+          <h2 class="episode-title">L'Ombre de WhatsApp</h2>
+          <p class="episode-desc">Awa tombe dans le piège d'une fausse information santé. Heureusement, son amie pharmacienne est là.</p>
+          <span class="btn-read">Lire l'épisode ➔</span>
+        </div>
+      </a>
+
+      <!-- ÉPISODE 2 -->
+      <a href="webtoon2.html" class="episode-card">
+        <div class="episode-cover" style="background-image: url('assets/cnam2.jpg');"></div>
+        <div class="episode-info">
+          <span class="episode-number">Épisode 2</span>
+          <h2 class="episode-title">La Carte Mystère (CNAM)</h2>
+          <p class="episode-desc">Awa est malade mais n'a pas assez d'argent. Elle découvre l'utilité de sa carte CNAM.</p>
+          <span class="btn-read">Lire l'épisode ➔</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+</body>
+</html>
