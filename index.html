@@ -4,138 +4,130 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mariane — Le Pouls Numérique</title>
-  <meta name="description" content="Étudiante en médecine. Je décrypte la santé en Côte d'Ivoire à l'ère du numérique et je forme pour agir." />
+  <meta name="description" content="Étudiante en médecine. Santé numérique, réalités ivoiriennes & Formations." />
   
-  <!-- ========================================== -->
-  <!-- BALISES OPEN GRAPH (Pour WhatsApp, FB, LinkedIn) -->
-  <!-- ========================================== -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://loeilduplateau-coder.github.io/lepoulsnumerique/" />
   <meta property="og:title" content="Mariane | Le Pouls Numérique" />
-  <meta property="og:description" content="Décryptage de la santé en Côte d'Ivoire & Formations. Découvrez aussi l'application Djoloba et jouez à notre jeu interactif !" />
-  <!-- L'image qui s'affichera sur WhatsApp (utilise ta photo de profil ou le flyer) -->
+  <meta property="og:description" content="Décryptage de la santé en Côte d'Ivoire & Formations." />
   <meta property="og:image" content="https://loeilduplateau-coder.github.io/lepoulsnumerique/assets/avatar.jpg" />
 
-  <!-- ========================================== -->
-  <!-- BALISES TWITTER CARD (Pour X) -->
-  <!-- ========================================== -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Mariane | Le Pouls Numérique" />
-  <meta name="twitter:description" content="Décryptage de la santé en Côte d'Ivoire & Formations. Découvrez aussi l'application Djoloba et jouez à notre jeu interactif !" />
-  <meta name="twitter:image" content="https://loeilduplateau-coder.github.io/lepoulsnumerique/assets/avatar.jpg" />
-
-  <!-- ========================================== -->
-  <!-- RESTE DU CODE (CSS) -->
-  <!-- ========================================== -->
   <style>
     :root { 
-      --bg: #0f172a; 
-      --card: #1e293b; 
-      --text: #e2e8f0; 
-      --muted: #94a3b8; 
-      --accent: #f97316; 
-      --green: #10b981; 
+      --bg: #0f172a; --card: #1e293b; --text: #e2e8f0; --muted: #94a3b8; 
+      --accent: #f97316; --green: #10b981; --purple: #8b5cf6; --blue: #3b82f6;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body { 
-      background-color: #0f172a;
-      color: var(--text); 
+      background-color: var(--bg); color: var(--text); 
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; 
-      min-height: 100vh;
+      min-height: 100vh; display: flex; justify-content: center;
     }
 
     .card { 
-      width: 100%; 
-      min-height: 100vh;
-      background-color: #1e293b; 
-      padding: 2rem 1.2rem; 
-      text-align: center; 
-      display: flex;
-      flex-direction: column;
+      width: 100%; max-width: 480px; background-color: var(--card); 
+      min-height: 100vh; padding: 0 1.2rem 2rem 1.2rem; 
+      text-align: center; display: flex; flex-direction: column;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative; overflow: hidden; 
     }
 
     @media (min-width: 600px) {
-      body { display: flex; justify-content: center; align-items: center; padding: 2rem; }
-      .card { 
-        max-width: 450px; 
-        min-height: auto; 
-        border-radius: 24px; 
-        box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
-      }
+      body { align-items: center; padding: 2rem; }
+      .card { min-height: auto; border-radius: 24px; }
+    }
+
+    /* --- SLIDER --- */
+    .slider-container {
+      position: relative;
+      width: calc(100% + 2.4rem); 
+      margin-left: -1.2rem;
+      height: 200px; 
+      overflow: hidden;
+      border-radius: 0 0 24px 24px;
+      background-color: #000; 
+    }
+
+    .slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      opacity: 0; 
+      transition: opacity 0.8s ease-in-out;
+      display: flex; 
+      align-items: center; /* On centre le texte verticalement */
+      justify-content: center;
+    }
+
+    .slide.active { opacity: 1; z-index: 2; }
+
+    .slide img {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; 
+    }
+
+    /* NOUVEAU : Voile sombre léger pour lire le texte sans cacher l'image */
+    .slide::after {
+      content: '';
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.4); /* Voile bleu nuit à 40% d'opacité */
+      z-index: 1;
+    }
+
+    /* Le texte "Affiche de cinéma" */
+    .slide-text {
+      position: relative; 
+      z-index: 50; 
+      color: #fff !important; 
+      font-weight: 900; 
+      font-size: 1.6rem; /* Texte beaucoup plus grand */
+      text-transform: uppercase; 
+      letter-spacing: 2px;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.8); /* Ombre portée pour bien ressortir */
+      padding: 0 1rem;
+      line-height: 1.2;
+    }
+
+    /* --- PHOTO DE PROFIL --- */
+    .avatar-container {
+      margin-top: -55px; position: relative; z-index: 10; display: flex; justify-content: center;
     }
 
     .avatar { 
-      width: 110px; 
-      height: 110px; 
-      border-radius: 50%; 
-      object-fit: cover; 
-      border: 3px solid var(--accent); 
-      margin: 0 auto 1rem auto; 
-      background: #334155; 
+      width: 110px; height: 110px; border-radius: 50%; object-fit: cover; 
+      border: 4px solid var(--accent); background: #334155; box-shadow: 0 10px 25px rgba(0,0,0,0.4); 
     }
 
-    h1 { font-size: 1.8rem; margin-bottom: 0.4rem; color: #fff; }
+    /* --- CONTENU --- */
+    h1 { font-size: 1.8rem; margin-bottom: 0.4rem; color: #fff; margin-top: 1rem; }
+    .bio { color: var(--muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.2rem; padding: 0 0.5rem; }
 
-    .bio { 
-      color: var(--muted); 
-      font-size: 0.95rem; 
-      line-height: 1.5; 
-      margin-bottom: 1rem;
-      padding: 0 0.5rem;
-    }
-
-    .tags { 
-      display: flex; 
-      flex-wrap: wrap; 
-      justify-content: center; 
-      gap: 0.4rem; 
-      margin-bottom: 1.5rem;
-    }
-
+    .tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; margin-bottom: 1.5rem; }
     .tag { 
-      background: rgba(255, 255, 255, 0.1); 
-      color: #cbd5e1; 
-      font-size: 0.7rem; 
-      padding: 0.35rem 0.7rem; 
-      border-radius: 20px; 
-      font-weight: 700; 
-      text-transform: uppercase; 
+      background: rgba(255, 255, 255, 0.05); color: #cbd5e1; 
+      font-size: 0.7rem; padding: 0.35rem 0.7rem; border-radius: 20px; 
+      font-weight: 700; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.1);
     }
 
     .btn { 
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 1rem; 
-      border-radius: 12px; 
-      text-decoration: none; 
-      color: var(--text); 
-      background: #334155; 
-      border: none; 
-      font-weight: 600; 
-      font-size: 1rem; 
-      margin-bottom: 0.8rem; 
+      display: flex; justify-content: center; align-items: center;
+      padding: 1rem; border-radius: 14px; text-decoration: none; 
+      color: var(--text); background: #334155; border: none; 
+      font-weight: 700; font-size: 1rem; margin-bottom: 0.8rem; 
+      transition: transform 0.15s ease, background 0.15s ease;
     }
 
-    .btn.primary { background: var(--accent); color: #0f172a; font-weight: 800; font-size: 1.1rem; }
-    .btn.formation { background: var(--green); color: #fff; font-weight: 800; font-size: 1.1rem; }
-    .btn.game { background: #8b5cf6; color: white; font-weight: 800; font-size: 1.1rem; margin-bottom: 1.5rem; }
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn.primary { background: var(--accent); color: #0f172a; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3); }
+    .btn.webtoon { background: var(--blue); color: white; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
+    .btn.formation { background: var(--green); color: white; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+    .btn.game { background: var(--purple); color: white; font-size: 1.1rem; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3); }
 
     .links { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+    .btn.small { padding: 0.7rem; font-size: 0.9rem; margin-bottom: 0; background: rgba(255,255,255,0.05); }
     
-    .btn.small {
-      padding: 0.7rem;
-      font-size: 0.9rem;
-      margin-bottom: 0;
-    }
-
     .btn.djoloba { 
-      background-color: rgba(16, 185, 129, 0.1); 
-      border: 2px solid #10b981; 
-      color: #10b981; 
-      margin-top: 0.5rem;
+      background-color: rgba(16, 185, 129, 0.1); border: 2px solid var(--green); 
+      color: var(--green); margin-top: 0.5rem; font-size: 1rem;
     }
 
     footer { margin-top: auto; padding-top: 1rem; }
@@ -145,50 +137,92 @@
 <body>
   <main class="card">
     
-    <div class="top-section">
-      <img src="assets/avatar.jpg" alt="Photo de Mariane" class="avatar" />
-      <h1>Mariane</h1>
-      <p class="bio">Étudiante en médecine. Je décrypte la santé en Côte d'Ivoire à l'ère du numérique et je forme pour agir.</p>
+    <div class="slider-container" id="slider">
       
-      <div class="tags">
-        <span class="tag">Santé Numérique</span>
-        <span class="tag">Fake News</span>
-        <span class="tag">Formations</span>
+      <div class="slide active">
+        <img src="assets/avatar.jpg" alt="Le Pouls Numérique">
+        <div class="slide-text" style="color: var(--accent) !important;">Le Pouls Numérique</div>
       </div>
-    </div>
 
-    <div class="middle-section">
-      <a class="btn primary" href="https://lepoulsnumerique.substack.com" target="_blank">
-        📖 Lire Le Pouls Numérique
-      </a>
-
-      <a class="btn formation" href="formations.html">
-        🎓 Se renseigner sur les formations
-      </a>
-
-      <a class="btn game" href="jeu.html" target="_blank">
-        🎮 Jouer au Vrai ou Faux Santé
-      </a>
-      <a class="btn" href="webtoons.html" style="background-color: #3b82f6; color: white; font-weight: 800; font-size: 1.1rem; margin-bottom: 1.5rem;">
-        📚 Lire nos Webtoons
-      </a>
-    </div>
-
-    <div class="bottom-section">
-      <div class="links">
-        <a class="btn small" href="https://tiktok.com/@lepoulsnumerique" target="_blank">TikTok</a>
-        <a class="btn small" href="https://instagram.com/lepoulsnumerique" target="_blank">Instagram</a>
-        <a class="btn small" href="https://facebook.com/lepoulsnumerique" target="_blank">Facebook</a>
-        
-        <a class="btn djoloba" href="djoloba.html" target="_blank">
-          📱 Découvrir Djoloba
-        </a>
+      <div class="slide">
+        <img src="assets/cnam2.jpg" alt="Djoloba Application">
+        <div class="slide-text" style="color: var(--green) !important;">Djoloba</div>
       </div>
-      <footer>
-        <small>© 2026 · Le Pouls Numérique</small>
-      </footer>
+
+      <div class="slide">
+        <img src="assets/case1.jpg" alt="Les Webtoons">
+        <div class="slide-text" style="color: var(--blue) !important;">Les Webtoons</div>
+      </div>
+
+      <div class="slide">
+        <img src="assets/cnam4.jpg" alt="Le Jeu Interactif">
+        <div class="slide-text" style="color: var(--purple) !important;">Le Jeu</div>
+      </div>
+
+      <div class="slide">
+        <img src="assets/cnam3.jpg" alt="Les Formations">
+        <div class="slide-text">Les Formations</div>
+      </div>
+
     </div>
+
+    <div class="avatar-container">
+      <img src="assets/avatar.jpg" alt="Photo de Mariane" class="avatar" />
+    </div>
+    
+    <h1>Mariane</h1>
+    
+    <p class="bio">Étudiante en médecine. Je décrypte la santé en Côte d'Ivoire à l'ère du numérique et je forme pour agir.</p>
+    
+    <div class="tags">
+      <span class="tag">Santé Numérique</span>
+      <span class="tag">Fake News</span>
+      <span class="tag">Formations</span>
+    </div>
+
+    <a class="btn primary" href="https://lepoulsnumerique.substack.com" target="_blank">
+      📖 Lire Le Pouls Numérique
+    </a>
+
+    <a class="btn webtoon" href="webtoons.html">
+      📚 Découvrir nos Webtoons
+    </a>
+
+    <a class="btn formation" href="formations.html">
+      🎓 Se renseigner sur les formations
+    </a>
+
+    <a class="btn game" href="jeu.html" target="_blank">
+      🎮 Jouer au Vrai ou Faux Santé
+    </a>
+
+    <div class="links">
+      <a class="btn small" href="https://tiktok.com/@lepoulsnumerique" target="_blank">TikTok</a>
+      <a class="btn small" href="https://instagram.com/lepoulsnumerique" target="_blank">Instagram</a>
+      <a class="btn small" href="https://facebook.com/lepoulsnumerique" target="_blank">Facebook</a>
+      
+      <a class="btn djoloba" href="djoloba.html" target="_blank">
+        📱 Découvrir Djoloba
+      </a>
+    </div>
+
+    <footer>
+      <small>© 2026 · Le Pouls Numérique</small>
+    </footer>
 
   </main>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    function nextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(nextSlide, 3500); 
+  </script>
 </body>
 </html>

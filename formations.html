@@ -18,9 +18,18 @@
 
     .header-section { text-align: center; margin-bottom: 2rem; }
     .header-section h1 { font-size: 2rem; margin-bottom: 0.5rem; color: #fff; }
-    .header-section p { color: var(--muted); font-size: 0.95rem; line-height: 1.5; }
+    .header-section p { color: var(--muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem; }
+    
+    /* NOUVEAU : Image de bannière */
+    .banner-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+      border: 2px solid rgba(255,255,255,0.1);
+    }
 
-    /* Section "Pourquoi nous" */
     .why-us {
       background: rgba(16, 185, 129, 0.1);
       border: 1px solid rgba(16, 185, 129, 0.3);
@@ -33,7 +42,6 @@
     .why-us li { font-size: 0.9rem; margin-bottom: 0.8rem; display: flex; gap: 0.5rem; align-items: flex-start; color: #cbd5e1; }
     .why-us li::before { content: "✓"; color: var(--primary); font-weight: bold; }
 
-    /* Cartes de formation */
     .course-card {
       background-color: var(--card);
       border: 1px solid rgba(255,255,255,0.05);
@@ -42,15 +50,27 @@
       margin-bottom: 1.5rem;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       transition: transform 0.2s;
+      display: flex;
+      flex-direction: column;
     }
     .course-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.15); }
+
+    /* NOUVEAU : Images à l'intérieur des cartes de formation */
+    .course-img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      background-color: #334155;
+    }
 
     .course-tags { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
     .tag { background: rgba(255, 255, 255, 0.1); color: var(--text); font-size: 0.7rem; padding: 0.3rem 0.6rem; border-radius: 20px; font-weight: 600; text-transform: uppercase; }
     .tag.new { background-color: var(--accent); color: #0f172a; }
 
     .course-title { font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
-    .course-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.5; margin-bottom: 1.2rem; }
+    .course-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.5; margin-bottom: 1.2rem; flex-grow: 1; }
     
     .course-info {
       display: flex; justify-content: space-between; align-items: center;
@@ -67,12 +87,6 @@
     }
     .btn-enroll:hover { background-color: var(--primary-hover); }
 
-    .btn-enroll-custom {
-      background-color: transparent; border: 2px solid var(--primary); color: var(--primary);
-    }
-    .btn-enroll-custom:hover { background-color: rgba(16, 185, 129, 0.1); }
-
-    /* Section Contact / Personnalisé */
     .contact-section {
       background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
       border: 1px solid rgba(255,255,255,0.1);
@@ -99,11 +113,13 @@
     <div class="header-section">
       <h1>Nos Formations</h1>
       <p>Choisissez le programme qui correspond à vos besoins. Des formations créées pour les réalités ivoiriennes.</p>
+      
+      <!-- NOUVEAU : Image de bannière (tu peux mettre ta photo en blouse ou une image de groupe) -->
+      <img src="assets/avatar.jpg" alt="Formations Le Pouls Numérique" class="banner-image" style="object-fit: cover; object-position: top;">
     </div>
 
-    <!-- Section Pourquoi nous -->
     <div class="why-us">
-      <h3>💡 Pourquoi se former avec Le Pouls Numérique ?</h3>
+      <h3>💡 Pourquoi se former avec nous ?</h3>
       <ul>
         <li>Des formateurs experts (médecins, informaticiens, délégués médicaux).</li>
         <li>Des cas pratiques adaptés au contexte de la Côte d'Ivoire.</li>
@@ -114,6 +130,9 @@
 
     <!-- Formation 1 -->
     <div class="course-card">
+      <!-- NOUVEAU : Image de la formation -->
+      <img src="assets/case1.jpg" alt="Fake News" class="course-img">
+      
       <div class="course-tags">
         <span class="tag">Santé</span>
         <span class="tag">Débutant</span>
@@ -130,6 +149,9 @@
 
     <!-- Formation 2 -->
     <div class="course-card">
+      <!-- NOUVEAU : Image de la formation -->
+      <img src="assets/cnam3.jpg" alt="Bureautique Clinique" class="course-img">
+      
       <div class="course-tags">
         <span class="tag">Informatique</span>
         <span class="tag">Professionnel</span>
@@ -145,6 +167,9 @@
 
     <!-- Formation 3 -->
     <div class="course-card">
+      <!-- NOUVEAU : Image de la formation -->
+      <img src="assets/cnam4.jpg" alt="Santé Numérique" class="course-img">
+      
       <div class="course-tags">
         <span class="tag">Public</span>
         <span class="tag">Sensibilisation</span>
@@ -158,7 +183,6 @@
       <a href="https://wa.me/2250788482483?text=Bonjour,%20je%20suis%20intéressé(e)%20par%20la%20formation%20:Initiation%20à%20la%20Santé%20Numérique." target="_blank" class="btn-enroll">Choisir cette formation</a>
     </div>
 
-    <!-- Section Contact -->
     <div class="contact-section">
       <h3>Un besoin spécifique ?</h3>
       <p>Vous êtes une clinique ou une entreprise et vous souhaitez une formation sur-mesure ?</p>
