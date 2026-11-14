@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Djoloba Express - Transport & Livraison Santé</title>
+  <style>
+    :root {
+      --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --muted: #64748b;
+      --primary: #f97316; --primary-hover: #ea580c; --green: #10b981; --blue: #3b82f6; --purple: #8b5cf6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      background-color: var(--bg); color: var(--text); 
+      font-family: system-ui, -apple-system, sans-serif; 
+      padding-bottom: 2rem; 
+    }
+    .container { max-width: 500px; margin: 0 auto; padding: 1.5rem; }
+
+    /* En-tête */
+    .header { text-align: center; margin-bottom: 2rem; }
+    .header h1 { font-size: 1.8rem; color: #0f172a; margin-bottom: 0.5rem; }
+    .header h1 span { color: var(--primary); }
+    .header p { color: var(--muted); font-size: 0.95rem; }
+
+    /* Image principale (Hero - Moto) */
+    .hero-image {
+      width: 100%; height: 220px; object-fit: cover; border-radius: 20px;
+      margin-bottom: 2rem; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      border: 2px solid #fff;
+    }
+
+    /* Carte de présentation du service */
+    .driver-card {
+      background-color: var(--card); border-radius: 20px; padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 2rem;
+      text-align: center; border: 1px solid #e2e8f0;
+      position: relative; overflow: hidden;
+    }
+    .driver-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 80px;
+      background: linear-gradient(135deg, var(--primary) 0%, #ea580c 100%);
+    }
+    /* L'image du motard casqué */
+    .driver-avatar {
+      width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
+      border: 4px solid var(--card); margin: 30px auto 1rem auto; 
+      background: #f1f5f9; position: relative; z-index: 2;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .driver-name { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.2rem; }
+    
+    .badge-status {
+      display: inline-block; background-color: rgba(16, 185, 129, 0.1); 
+      color: var(--green); border: 1px solid var(--green);
+      font-size: 0.7rem; font-weight: 800; padding: 0.3rem 0.8rem; 
+      border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: 0.8rem;
+    }
+
+    .driver-role { color: var(--primary); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1rem; }
+    .driver-bio { font-size: 0.9rem; color: var(--muted); line-height: 1.5; font-style: italic; }
+
+    /* Section des services */
+    .services-title {
+      font-size: 1.2rem; font-weight: 800; color: #0f172a;
+      margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    
+    .service-card {
+      background-color: var(--card); border-radius: 20px; overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 1.5rem;
+      border: 1px solid #e2e8f0; transition: transform 0.2s;
+    }
+    .service-card:hover { transform: translateY(-3px); }
+    
+    .service-image {
+      width: 100%; height: 140px; object-fit: cover; display: block;
+      filter: brightness(0.9); 
+    }
+
+    .service-content { padding: 1.5rem; }
+    .service-content h3 { font-size: 1.2rem; color: #0f172a; margin-bottom: 0.5rem; }
+    .service-content p { font-size: 0.9rem; color: var(--muted); line-height: 1.5; margin-bottom: 1.2rem; }
+    
+    /* Boutons */
+    .btn {
+      display: flex; justify-content: center; align-items: center; gap: 0.5rem;
+      width: 100%; text-align: center; text-decoration: none;
+      font-weight: 700; padding: 0.9rem; border-radius: 12px; font-size: 1rem;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn:active { transform: scale(0.98); }
+    
+    .btn-transport { background-color: var(--blue); color: white; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3); }
+    .btn-livraison { background-color: var(--green); color: white; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
+    .btn-kobo { background-color: var(--purple); color: white; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3); }
+
+    /* Section Kobo (Enquête) */
+    .kobo-section {
+      background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+      border: 1px solid #ddd6fe; border-radius: 20px; padding: 1.5rem; margin-top: 2rem;
+    }
+    .kobo-section h3 { color: #6d28d9; font-size: 1.1rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .kobo-section p { font-size: 0.9rem; color: #4c1d95; margin-bottom: 1.2rem; line-height: 1.5; }
+
+    /* Pied de page */
+    .footer { text-align: center; margin-top: 3rem; font-size: 0.85rem; color: var(--muted); }
+    .footer a { color: var(--primary); text-decoration: none; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- En-tête -->
+    <div class="header">
+      <h1>Djoloba <span>Express</span></h1>
+      <p>Votre santé ne s'arrête pas à votre porte.</p>
+    </div>
+
+    <!-- IMAGE HERO (Moto) -->
+    <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Motard livreur" class="hero-image" />
+
+    <!-- Carte de présentation du service -->
+    <div class="driver-card">
+      <!-- Image d'un motard casqué (remplace l'ancien visage) -->
+      <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Partenaire Djoloba" class="driver-avatar" />
+      
+      <h2 class="driver-name">Notre partenaire terrain</h2>
+      
+      <div class="badge-status">Prestataire Indépendant</div>
+      
+      <div class="driver-role">Livreur & Sociologue Santé</div>
+      
+      <p class="driver-bio">
+        "Le service <strong>Djoloba Express</strong> est assuré par des partenaires formés et rigoureusement sélectionnés par Mariane, fondatrice du Pouls Numérique. 
+        Notre mission : vous accompagner en toute sécurité pour vos besoins de transport et de livraison de santé."
+      </p>
+    </div>
+
+    <!-- Services -->
+    <h2 class="services-title">🛠️ Nos Services</h2>
+
+    <!-- Service 1 : Transport -->
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Transport moto" class="service-image">
+      <div class="service-content">
+        <h3>Transport vers les soins</h3>
+        <p>Vous êtes trop faible pour vous déplacer ? Réservez une moto pour vous emmener à la pharmacie, au laboratoire ou à la clinique.</p>
+        <!-- Le lien pointe vers TON numéro pour garder le contrôle -->
+        <a href="https://wa.me/2250788482483?text=Bonjour,%20je%20souhaite%20réserver%20un%20transport%20Djoloba%20Express.%20Je%20suis%20à%20[Votre%20quartier]." 
+           target="_blank" class="btn btn-transport">
+          🛵 Réserver un transport
+        </a>
+      </div>
+    </div>
+
+    <!-- Service 2 : Livraison -->
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Livraison médicaments" class="service-image">
+      <div class="service-content">
+        <h3>Livraison de médicaments</h3>
+        <p>Vous êtes bloqué à la maison ? Le pharmacien valide vos besoins (pansements, paracétamol...), notre partenaire passe les récupérer et vous les livre.</p>
+        <a href="https://wa.me/2250788482483?text=Bonjour,%20je%20souhaite%20une%20livraison%20Djoloba%20Express.%20Je%20suis%20à%20[Votre%20quartier]." 
+           target="_blank" class="btn btn-livraison">
+          💊 Demander une livraison
+        </a>
+      </div>
+    </div>
+
+    <!-- Section Kobo (Enquête) -->
+    <div class="kobo-section">
+      <h3>📊 Enquête de terrain</h3>
+      <p>
+        En tant que sociologue santé, notre partenaire réalise des enquêtes pour comprendre les réalités de l'accès aux soins dans votre quartier. 
+        Vos réponses aident <strong>Le Pouls Numérique</strong> à mieux vous informer.
+      </p>
+      <!-- Remplace par le vrai lien de ton formulaire Kobo -->
+      <a href="https://ee.kobotoolbox.org/x/..." target="_blank" class="btn btn-kobo">
+        Répondre à l'enquête (2 min)
+      </a>
+    </div>
+
+    <!-- Pied de page -->
+    <div class="footer">
+      Une initiative soutenue par <a href="index.html">Le Pouls Numérique</a> & <a href="djoloba.html">Djoloba</a>.<br>
+      © 2026 · Abidjan, Côte d'Ivoire
+    </div>
+
+  </div>
+
+</body>
+</html>

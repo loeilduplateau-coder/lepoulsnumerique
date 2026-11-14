@@ -18,12 +18,13 @@
       --purple: #8b5cf6; --yellow-bg: #fefce8; --yellow-border: #fef08a; --yellow-text: #854d0e;
       --blue-bg: #eff6ff; --blue-border: #bfdbfe; --blue-text: #1e3a8a;
       --green-bg: #f0fdf4; --green-border: #bbf7d0; --green-text: #166534;
+      --accent: #f97316; /* Orange pour Express */
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background-color: var(--bg); color: var(--text); font-family: system-ui, sans-serif; padding-bottom: 2rem; overflow-x: hidden; scroll-behavior: smooth; }
     .container { width: 100%; max-width: 600px; margin: 0 auto; }
 
-    /* --- MENU LATÉRAL --- */
+    /* MENU LATÉRAL */
     .sidebar {
       height: 100%; width: 0; position: fixed; z-index: 1000; top: 0; left: 0;
       background-color: #0f172a; overflow-x: hidden; transition: 0.3s;
@@ -35,95 +36,27 @@
       border-bottom: 1px solid rgba(255,255,255,0.05);
     }
     .sidebar a:hover { background-color: #1e293b; color: var(--primary); }
-    .sidebar .closebtn {
-      position: absolute; top: 10px; right: 20px;
-      font-size: 30px; color: white; cursor: pointer;
-    }
+    .sidebar .closebtn { position: absolute; top: 10px; right: 20px; font-size: 30px; color: white; cursor: pointer; }
 
-    /* --- EN-TÊTE MODERNE --- */
-    .header-weather { 
-      background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); 
-      color: white; 
-      padding: 1rem 1.2rem; 
-      margin-bottom: 1rem; 
-      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2); 
-      display: flex; 
-      flex-direction: column; 
-      gap: 0.8rem; 
-    }
+    /* EN-TÊTE */
+    .header-weather { background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); color: white; padding: 1rem 1.2rem; margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2); display: flex; flex-direction: column; gap: 0.8rem; }
+    .header-top { display: flex; justify-content: space-between; align-items: center; width: 100%; padding-left: 0; }
     
-    .header-top { 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-      width: 100%; 
-      /* On colle le bouton bien à gauche */
-      padding-left: 0; 
-    }
-
-    /* --- NOUVEAU BOUTON MENU (ROND ET RESPIRANT) --- */
     .menu-btn {
-      background: rgba(255,255,255,0.15); 
-      border: none; 
-      cursor: pointer; 
-      color: white;
-      display: flex; 
-      align-items: center; 
-      justify-content: center;
-      width: 40px; 
-      height: 40px; 
-      border-radius: 50%; /* Le rend parfaitement rond */
-      transition: all 0.3s ease;
-      flex-shrink: 0; /* Empêche le bouton de rétrécir */
-      
-      /* L'animation de respiration */
-      animation: breathe 3s infinite ease-in-out; 
+      background: rgba(255,255,255,0.15); border: none; cursor: pointer; color: white;
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 50%; transition: all 0.3s ease;
+      flex-shrink: 0; animation: breathe 3s infinite ease-in-out; 
     }
+    .menu-btn:hover, .menu-btn:active { background: rgba(255,255,255,0.3); transform: scale(1.1); animation: none; }
+    @keyframes breathe { 0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); } 50% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } }
+    .menu-btn svg { width: 20px; height: 20px; fill: white; margin-left: -2px; }
 
-    /* L'effet au survol (ou au toucher) */
-    .menu-btn:hover, .menu-btn:active {
-      background: rgba(255,255,255,0.3);
-      transform: scale(1.1);
-      animation: none; /* On arrête de respirer quand on clique */
-    }
-
-    /* L'animation de respiration douce */
-    @keyframes breathe {
-      0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
-      50% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
-    }
-
-    .menu-btn svg { 
-      width: 20px; 
-      height: 20px; 
-      fill: white; 
-      /* On décale très légèrement les traits pour qu'ils paraissent parfaitement centrés visuellement */
-      margin-left: -2px; 
-    }
-
-    /* Logo et Badge */
     .logo { font-size: 1.6rem; font-weight: 800; color: white; letter-spacing: -0.5px; line-height: 1; margin: 0; }
     .logo span { color: #93c5fd; }
-    
-    .badge-ci { 
-      background-color: rgba(255, 255, 255, 0.15); 
-      padding: 0.4rem 0.8rem; 
-      border-radius: 20px; 
-      font-size: 0.7rem; 
-      font-weight: 800; 
-      letter-spacing: 0.5px; 
-      text-transform: uppercase; 
-    }
+    .badge-ci { background-color: rgba(255, 255, 255, 0.15); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; }
 
-    .weather-info-row { 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-      background: rgba(0,0,0,0.15); 
-      border-radius: 12px; 
-      padding: 0.6rem 1rem;
-    }
+    .weather-info-row { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.15); border-radius: 12px; padding: 0.6rem 1rem; }
     .weather-text { display: flex; align-items: center; gap: 0.5rem; }
     .weather-text h4 { font-size: 0.75rem; text-transform: uppercase; opacity: 0.8; font-weight: 600; }
     .weather-text p { font-size: 0.9rem; font-weight: 500; }
@@ -132,8 +65,9 @@
     @media (max-width: 600px) { .header-weather { border-radius: 0; } .content-wrapper { padding: 0 0.5rem; } }
     @media (min-width: 601px) { .header-weather { border-radius: 0 0 16px 16px; margin-top: 1rem; } .content-wrapper { padding: 0; } }
 
-    /* --- LE RESTE DU DESIGN EST IDENTIQUE --- */
     .section-target { scroll-margin-top: 20px; }
+    
+    /* CARTES */
     .tip-card { background-color: var(--yellow-bg); border: 1px solid var(--yellow-border); border-radius: 16px; padding: 1rem; margin-bottom: 1rem; display: flex; gap: 1rem; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
     .tip-image { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--yellow-border); background-color: #fff; flex-shrink: 0; }
     .tip-content h4 { color: var(--yellow-text); font-size: 0.9rem; margin-bottom: 0.2rem; }
@@ -146,6 +80,22 @@
     select:focus, input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2); }
     button.btn-primary { background-color: var(--primary); color: white; border: none; font-weight: 700; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
     button.btn-primary:hover { background-color: var(--primary-hover); }
+
+    /* NOUVEAU : ENCART EXPRESS */
+    .express-box { 
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%); 
+      border: 1px solid rgba(249, 115, 22, 0.3); 
+      border-radius: 16px; 
+      padding: 1.2rem; 
+      margin-bottom: 1rem; 
+      text-align: center;
+    }
+    .express-box p { font-size: 0.85rem; color: #475569; margin-bottom: 0.8rem; font-weight: 500; }
+    .btn-express { 
+      display: inline-block; background-color: var(--accent); color: white; 
+      font-weight: 700; padding: 0.7rem 1.2rem; border-radius: 10px; 
+      text-decoration: none; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.2);
+    }
 
     #results-list { display: none; margin-bottom: 1rem; }
     .result-item { background-color: var(--card); border: 1px solid #e2e8f0; border-radius: 12px; padding: 1rem; margin-bottom: 0.8rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
@@ -194,18 +144,17 @@
   <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()">×</a>
     <a href="#section-recherche" onclick="toggleNav()">📍 Trouver un soin</a>
+    <a href="express.html" onclick="toggleNav()">🛵 Djoloba Express</a>
     <a href="#section-radio" onclick="toggleNav()">📻 Radio Djoloba</a>
     <a href="#section-public" onclick="toggleNav()">❤️ Bilan santé</a>
     <a href="#section-pro" onclick="toggleNav()">🩺 Outils soignants</a>
     <a href="#section-urgence" onclick="toggleNav()">🚨 Urgences</a>
-<a href="jeu.html" target="_blank">🎮 Jouer au Vrai ou Faux</a>
   </div>
 
   <div class="container">
     <!-- EN-TÊTE MODERNE -->
     <div class="header-weather">
       <div class="header-top">
-        <!-- Le bouton rond qui respire -->
         <button class="menu-btn" onclick="toggleNav()">
           <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
         </button>
@@ -233,6 +182,7 @@
         </div>
       </div>
 
+      <!-- SECTION RECHERCHE -->
       <div id="section-recherche" class="search-box section-target">
         <div class="form-group">
           <label>Que cherchez-vous ?</label>
@@ -249,9 +199,16 @@
         <button class="btn-primary" onclick="chercherEtablissement()">Trouver maintenant</button>
       </div>
 
+      <!-- NOUVEAU : ENCART EXPRESS -->
+      <div class="express-box">
+        <p>🛵 Trop malade pour vous déplacer ? Besoin d'une livraison urgente ?</p>
+        <a href="express.html" class="btn-express">Découvrir Djoloba Express</a>
+      </div>
+
       <div id="results-list"></div>
       <div id="map-container"><div id="map"></div></div>
 
+      <!-- SECTION RADIO -->
       <div id="section-radio" class="radio-widget section-target">
         <div class="radio-header"><span class="live-dot"></span><h3>Radio Djoloba</h3></div>
         <p class="radio-desc">La chronique santé du jour (2 min)</p>
@@ -259,10 +216,12 @@
         <button class="radio-btn" id="playBtn" onclick="togglePlay()">▶ Écouter la chronique</button>
       </div>
 
+      <!-- SECTION URGENCE -->
       <div id="section-urgence" class="section-target">
         <a href="tel:185" class="emergency-btn"><span>🚨</span> Appeler le SAMU (185)</a>
       </div>
 
+      <!-- SECTION BILAN GRAND PUBLIC -->
       <div id="section-public" class="public-tools-box section-target">
         <h3>❤️ Mon bilan santé rapide</h3>
         <div class="calc-group-public">
@@ -279,6 +238,7 @@
         </div>
       </div>
 
+      <!-- SECTION PRO -->
       <div id="section-pro" class="pro-tools-box section-target">
         <h3>🩺 Outils pour les soignants</h3>
         <p style="font-size: 0.8rem; color: #475569; margin-bottom: 1rem;">Un accès réservé aux professionnels de santé partenaires.</p>
@@ -306,11 +266,8 @@
     // --- MENU LATÉRAL ---
     function toggleNav() {
       const sidebar = document.getElementById("mySidebar");
-      if (sidebar.style.width === "260px") {
-        sidebar.style.width = "0";
-      } else {
-        sidebar.style.width = "260px";
-      }
+      if (sidebar.style.width === "260px") { sidebar.style.width = "0"; } 
+      else { sidebar.style.width = "260px"; }
     }
 
     // --- MÉTÉO ---
@@ -344,13 +301,9 @@
     const playBtn = document.getElementById('playBtn');
     function togglePlay() {
       if (audio.paused) {
-        audio.play();
-        playBtn.innerHTML = "⏸ Mettre en pause";
-        playBtn.style.backgroundColor = "#ef4444"; 
+        audio.play(); playBtn.innerHTML = "⏸ Mettre en pause"; playBtn.style.backgroundColor = "#ef4444"; 
       } else {
-        audio.pause();
-        playBtn.innerHTML = "▶ Écouter la chronique";
-        playBtn.style.backgroundColor = "#8b5cf6"; 
+        audio.pause(); playBtn.innerHTML = "▶ Écouter la chronique"; playBtn.style.backgroundColor = "#8b5cf6"; 
       }
     }
 
@@ -436,27 +389,17 @@
     function calculerEau() {
       const poids = parseFloat(document.getElementById('poids-eau').value);
       const resDiv = document.getElementById('resultat-eau');
-      if (isNaN(poids) || poids <= 0) {
-        resDiv.style.display = 'block';
-        resDiv.innerText = "Entrez un poids valide.";
-        return;
-      }
+      if (isNaN(poids) || poids <= 0) { resDiv.style.display = 'block'; resDiv.innerText = "Entrez un poids valide."; return; }
       const litres = (poids * 35 / 1000).toFixed(1);
-      resDiv.style.display = 'block';
-      resDiv.innerText = "Vous devriez boire environ " + litres + " Litres d'eau par jour.";
+      resDiv.style.display = 'block'; resDiv.innerText = "Vous devriez boire environ " + litres + " Litres d'eau par jour.";
     }
 
     function calculerFC() {
       const age = parseFloat(document.getElementById('age-sport').value);
       const resDiv = document.getElementById('resultat-fc');
-      if (isNaN(age) || age <= 0) {
-        resDiv.style.display = 'block';
-        resDiv.innerText = "Entrez un âge valide.";
-        return;
-      }
+      if (isNaN(age) || age <= 0) { resDiv.style.display = 'block'; resDiv.innerText = "Entrez un âge valide."; return; }
       const fcMax = 220 - age;
-      resDiv.style.display = 'block';
-      resDiv.innerText = "Votre fréquence cardiaque max est de " + fcMax + " battements/minute.";
+      resDiv.style.display = 'block'; resDiv.innerText = "Votre fréquence cardiaque max est de " + fcMax + " battements/minute.";
     }
 
     // --- CALCUL PRO (IMC) ---
@@ -464,24 +407,17 @@
       const poids = parseFloat(document.getElementById('poids').value);
       const tailleCm = parseFloat(document.getElementById('taille').value);
       const resultatDiv = document.getElementById('resultat-imc');
-      
       if (isNaN(poids) || isNaN(tailleCm) || poids <= 0 || tailleCm <= 0) {
-        resultatDiv.style.display = 'block';
-        resultatDiv.style.color = '#ef4444';
-        resultatDiv.innerHTML = "Veuillez entrer des valeurs valides.";
-        return;
+        resultatDiv.style.display = 'block'; resultatDiv.style.color = '#ef4444'; resultatDiv.innerHTML = "Veuillez entrer des valeurs valides."; return;
       }
       const tailleM = tailleCm / 100;
       const imc = (poids / (tailleM * tailleM)).toFixed(1);
-      
       let interpretation = ""; let couleur = "";
       if (imc < 18.5) { interpretation = "Insuffisance pondérale"; couleur = "#3b82f6"; }
       else if (imc >= 18.5 && imc < 25) { interpretation = "Corpulence normale"; couleur = "#10b981"; }
       else if (imc >= 25 && imc < 30) { interpretation = "Surpoids"; couleur = "#f59e0b"; }
       else { interpretation = "Obésité"; couleur = "#ef4444"; }
-
-      resultatDiv.style.display = 'block';
-      resultatDiv.style.color = couleur;
+      resultatDiv.style.display = 'block'; resultatDiv.style.color = couleur;
       resultatDiv.innerHTML = "IMC : " + imc + " (" + interpretation + ")";
     }
 
