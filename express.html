@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Djoloba Express - Transport Sanitaire & Livraison</title>
+  <title>Djoloba Express - Transport & Livraison Santé</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -24,7 +24,7 @@
     .header h1 span { color: var(--primary); }
     .header p { color: var(--muted); font-size: 0.95rem; font-weight: 500; }
 
-    /* Image principale (Hero) */
+    /* Image principale (Hero - Flotte) */
     .hero-image {
       width: 100%; height: 220px; object-fit: cover; border-radius: 24px;
       margin-bottom: 2rem; box-shadow: 0 15px 30px rgba(0,0,0,0.1);
@@ -94,11 +94,11 @@
     }
     .btn:active { transform: scale(0.98); }
     
-    .btn-transport { background-color: var(--blue); color: white; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
-    .btn-transport:hover { background-color: #2563eb; }
+    .btn-moto { background-color: var(--blue); color: white; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
+    .btn-moto:hover { background-color: #2563eb; }
     
-    .btn-livraison { background-color: var(--green); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
-    .btn-livraison:hover { background-color: #059669; }
+    .btn-voiture { background-color: var(--green); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+    .btn-voiture:hover { background-color: #059669; }
     
     .btn-kobo { background-color: var(--purple); color: white; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3); }
     .btn-kobo:hover { background-color: #7c3aed; }
@@ -126,26 +126,23 @@
       <p>Votre santé ne s'arrête pas à votre porte.</p>
     </div>
 
-    <!-- IMAGE HERO (Moto) -->
-    <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Motard livreur" class="hero-image" />
+    <!-- IMAGE HERO : Flotte (flotte.png) -->
+    <img src="assets/flotte.png" alt="Flotte Djoloba Express" class="hero-image" />
 
     <!-- Carte de l'Ambassadeur -->
     <div class="driver-card">
-      <!-- Image d'un motard casqué -->
-      <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Partenaire Djoloba" class="driver-avatar" />
+      <!-- On garde l'image de coursier souriant pour l'humain -->
+      <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Ambassadeur Djoloba" class="driver-avatar" />
       
       <h2 class="driver-name">Notre Ambassadeur Terrain</h2>
-      
       <div class="badge-status">Partenaire Indépendant</div>
-      
       <div class="driver-role">Transporteur Sanitaire & Sociologue</div>
       
       <p class="driver-bio">
         "Djoloba Express est porté par des partenaires locaux formés et sélectionnés par Mariane. 
-        Notre ambassadeur terrain est là pour vous accompagner en toute sécurité lors de vos déplacements de santé et pour comprendre vos besoins au quotidien."
+        Notre ambassadeur terrain est là pour vous accompagner en toute sécurité lors de vos déplacements de santé."
       </p>
 
-      <!-- Bouton de contact direct avec l'ambassadeur -->
       <a href="https://wa.me/2250507954060?text=Bonjour,%20je%20souhaite%20contacter%20l'ambassadeur%20Djoloba%20Express." 
          target="_blank" 
          style="display: inline-block; margin-top: 1.2rem; background-color: #25D366; color: white; font-weight: 800; padding: 0.7rem 1.2rem; border-radius: 12px; text-decoration: none; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);">
@@ -156,35 +153,35 @@
     <!-- Services -->
     <h2 class="services-title">🛠️ Nos Services</h2>
 
-    <!-- Service 1 : Transport -->
+    <!-- Service 1 : Livraison Moto (moto-action.jpg) -->
     <div class="service-card">
-      <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Transport sanitaire" class="service-image">
+      <img src="assets/moto-action.jpg" alt="Livraison moto" class="service-image">
       <div class="service-content">
-        <h3>Transport vers les soins</h3>
-        <p>Vous êtes trop faible pour vous déplacer ? Réservez un transport pour vous emmener en toute sécurité à la pharmacie, au laboratoire ou à la clinique.</p>
+        <h3>Livraison de médicaments (Moto)</h3>
+        <p>Vous êtes bloqué à la maison ? Le pharmacien valide vos besoins (pansements, paracétamol...), notre partenaire passe les récupérer et vous les livre rapidement.</p>
         
-        <a href="https://wa.me/2250507954060?text=Bonjour,%20je%20souhaite%20réserver%20un%20transport%20sanitaire%20Djoloba%20Express.%20Je%20suis%20à%20[Votre%20quartier]." 
-           target="_blank" class="btn btn-transport">
-          🛵 Réserver un transport
-        </a>
-      </div>
-    </div>
-
-    <!-- Service 2 : Livraison -->
-    <div class="service-card">
-      <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Livraison médicaments" class="service-image">
-      <div class="service-content">
-        <h3>Livraison de médicaments</h3>
-        <p>Vous êtes bloqué à la maison ? Le pharmacien valide vos besoins (pansements, paracétamol...), notre partenaire passe les récupérer et vous les livre.</p>
-        
-        <a href="https://wa.me/2250507954060?text=Bonjour,%20je%20souhaite%20une%20livraison%20Djoloba%20Express.%20Je%20suis%20à%20[Votre%20quartier]." 
-           target="_blank" class="btn btn-livraison">
+        <a href="https://wa.me/2250507954060?text=Bonjour,%20je%20souhaite%20une%20livraison%20de%20médicaments%20par%20moto.%20Je%20suis%20à%20[Votre%20quartier]." 
+           target="_blank" class="btn btn-moto">
           💊 Demander une livraison
         </a>
       </div>
     </div>
 
-    <!-- Section Kobo (Enquête) -->
+    <!-- Service 2 : Transport Confort (Voiture - Lien gardé) -->
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Voiture de transport" class="service-image">
+      <div class="service-content">
+        <h3>Transport Confort (Voiture)</h3>
+        <p>Vous êtes très faible, âgé ou à mobilité réduite ? Réservez notre véhicule confortable pour vous rendre à la clinique ou à l'hôpital en toute sécurité.</p>
+        
+        <a href="https://wa.me/2250507954060?text=Bonjour,%20je%20souhaite%20réserver%20un%20transport%20en%20voiture%20(Confort).%20Je%20suis%20à%20[Votre%20quartier]." 
+           target="_blank" class="btn btn-voiture">
+          🚗 Réserver une voiture
+        </a>
+      </div>
+    </div>
+
+    <!-- Section Kobo (Enquête) avec le VRAI LIEN -->
     <div class="kobo-section">
       <h3>📊 Enquête de terrain</h3>
       <p>
@@ -192,7 +189,7 @@
         Vos réponses aident <strong>Le Pouls Numérique</strong> à mieux vous informer.
       </p>
       
-      <!-- Remplace par le vrai lien de ton formulaire Kobo -->
+      <!-- Lien Kobo mis à jour -->
       <a href="https://ee.kobotoolbox.org/x/pO6AtXku" target="_blank" class="btn btn-kobo">
         Répondre à l'enquête (2 min)
       </a>
