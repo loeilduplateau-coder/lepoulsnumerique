@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tech & Santé - Le Pouls Numérique</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1120; --card: #1e293b; --text: #f1f5f9; --muted: #94a3b8;
+      --primary: #0ea5e9; --accent: #f97316;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background-color: var(--bg); color: var(--text); font-family: 'Nunito', sans-serif; padding: 1.5rem; display: flex; justify-content: center; }
+    .container { width: 100%; max-width: 600px; }
+    
+    /* Bouton retour discret */
+    .back-link { 
+      color: var(--muted); text-decoration: none; font-size: 0.85rem; 
+      display: inline-block; margin-bottom: 1rem; font-weight: 700; 
+      transition: color 0.2s; padding: 0.4rem 0.8rem;
+      background: rgba(255,255,255,0.05); border-radius: 8px;
+    }
+    .back-link:hover { color: var(--primary); background: rgba(14, 165, 233, 0.1); }
+
+    /* --- BANNIÈRE --- */
+    .tech-banner {
+      position: relative;
+      width: 100%;
+      height: 120px;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    /* L'image de fond */
+    .tech-banner img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.8; /* Opacité augmentée pour voir l'image */
+      z-index: 1;
+    }
+
+    /* Le texte par-dessus l'image (calé à gauche pour le fond bleu) */
+    .tech-banner-text {
+      position: relative;
+      z-index: 2;
+      text-align: left;
+      padding-left: 1.5rem;
+    }
+    .tech-banner-text h1 {
+      font-size: 1.8rem;
+      color: #fff;
+      margin-bottom: 0.2rem;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+    .tech-banner-text p {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+    }
+
+    /* --- ONGLETS --- */
+    .tabs {
+      display: flex; gap: 0.5rem; margin-bottom: 1.5rem; overflow-x: auto; padding-bottom: 0.5rem;
+      scrollbar-width: none; 
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    
+    .tab-btn {
+      background-color: rgba(255,255,255,0.05); color: var(--muted); 
+      border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.2rem;
+      border-radius: 20px; font-weight: 700; font-size: 0.85rem; cursor: pointer;
+      white-space: nowrap; transition: all 0.3s; font-family: 'Nunito', sans-serif;
+    }
+    .tab-btn.active { 
+      background-color: var(--primary); color: #fff; 
+      border-color: var(--primary); box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
+    }
+
+    /* --- APPAREILS --- */
+    .device-view {
+      display: none; background-color: var(--card); border-radius: 24px; overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3); margin-bottom: 1.5rem;
+      position: relative; border: 1px solid rgba(255,255,255,0.05);
+    }
+    .device-view.active { display: block; animation: fadeIn 0.5s ease-out; }
+    
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+    .device-view img { width: 100%; display: block; opacity: 0.9; }
+
+    /* --- POINTS CLIQUABLES --- */
+    .hotspot {
+      position: absolute; width: 32px; height: 32px; 
+      background-color: var(--accent); border: 2px solid #fff;
+      border-radius: 50%; cursor: pointer; 
+      display: flex; justify-content: center; align-items: center;
+      color: white; font-weight: 900; font-size: 0.9rem;
+      box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); 
+      animation: pulse 2s infinite; transition: transform 0.2s;
+      z-index: 10;
+    }
+    .hotspot:hover { transform: scale(1.2); background-color: var(--primary); }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(249, 115, 22, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+    }
+
+    /* Positions ajustées sur tes images */
+    .tensio-spot-1 { top: 55%; left: 35%; } 
+    .tensio-spot-2 { top: 35%; left: 70%; } 
+    .echo-spot-1 { top: 65%; left: 45%; } 
+    .echo-spot-2 { top: 15%; left: 45%; }
+    .gluco-spot-1 { top: 75%; left: 25%; } 
+    .gluco-spot-2 { top: 40%; left: 40%; }
+
+    /* --- EXPLICATIONS --- */
+    .explanation-box {
+      background-color: rgba(14, 165, 233, 0.1); 
+      border: 1px solid var(--primary); 
+      border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem;
+      display: none; animation: fadeIn 0.3s;
+    }
+    .explanation-box h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .explanation-box p { font-size: 0.95rem; color: #cbd5e1; line-height: 1.5; }
+    
+    .expert-note { 
+      font-size: 0.85rem; color: #94a3b8; font-style: italic; 
+      margin-top: 1rem; border-top: 1px dashed rgba(255,255,255,0.2); 
+      padding-top: 0.8rem; background: rgba(0,0,0,0.2); 
+      padding: 0.8rem; border-radius: 8px; 
+    }
+
+    /* --- PROFIL D'ALFRED --- */
+    .expert-profile {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px; padding: 1.5rem; margin-top: 2.5rem;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+    }
+    .expert-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); margin-bottom: 1rem; }
+    .expert-profile h3 { color: #fff; font-size: 1.2rem; margin-bottom: 0.2rem; }
+    .expert-profile p { color: var(--muted); font-size: 0.85rem; margin-bottom: 1rem; line-height: 1.4; }
+    
+    .btn-repair {
+      display: flex; justify-content: center; align-items: center; gap: 0.5rem;
+      background-color: var(--primary); color: white; text-decoration: none;
+      font-weight: 800; padding: 0.9rem 1.5rem; border-radius: 12px; font-size: 0.95rem;
+      width: 100%; transition: background 0.2s; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+    }
+    .btn-repair:hover { background-color: #0284c7; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Bouton retour -->
+    <a href="index.html" class="back-link">← Retour</a>
+    
+    <!-- BANNIÈRE -->
+    <div class="tech-banner">
+      <!-- Image de fond locale -->
+      <img src="assets/banner-tech.jpg" alt="Tech Medical">
+      <div class="tech-banner-text">
+        <h1>⚙️ Tech & Santé</h1>
+        <p>Démystifier la technologie</p>
+      </div>
+    </div>
+
+    <!-- ONGLETS -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="openDevice('tensiometre', this)">🩺 Tensiomètre</button>
+      <button class="tab-btn" onclick="openDevice('echographe', this)">👶 Échographe</button>
+      <button class="tab-btn" onclick="openDevice('glucometre', this)">🩸 Glucomètre</button>
+    </div>
+
+    <!-- APPAREILS -->
+    <div id="tensiometre" class="device-view active">
+      <img src="assets/tensiometre.jpg" alt="Tensiomètre">
+      <div class="hotspot tensio-spot-1" onclick="showInfo('tensio-ecran')">1</div>
+      <div class="hotspot tensio-spot-2" onclick="showInfo('tensio-brassard')">2</div>
+    </div>
+
+    <div id="echographe" class="device-view">
+      <img src="assets/echographe.jpg" alt="Échographe">
+      <div class="hotspot echo-spot-1" onclick="showInfo('echo-sonde')">1</div>
+      <div class="hotspot echo-spot-2" onclick="showInfo('echo-ecran')">2</div>
+    </div>
+
+    <div id="glucometre" class="device-view">
+      <img src="assets/glucometre.jpg" alt="Glucomètre">
+      <div class="hotspot gluco-spot-1" onclick="showInfo('gluco-bandelette')">1</div>
+      <div class="hotspot gluco-spot-2" onclick="showInfo('gluco-ecran')">2</div>
+    </div>
+
+    <!-- EXPLICATIONS -->
+    <div id="info-container">
+      <div id="tensio-ecran" class="explanation-box">
+        <h3>1. L'Écran (Le Cerveau)</h3>
+        <p>Un microprocesseur traduit les signaux électriques du capteur en chiffres compréhensibles pour mesurer la tension.</p>
+        <div class="expert-note">💡 <strong>L'avis d'Alfred :</strong> "L'écran est souvent la partie la plus fragile."</div>
+      </div>
+      <div id="tensio-brassard" class="explanation-box">
+        <h3>2. Le Brassard (Le Capteur)</h3>
+        <p>Il contient un capteur de pression piézoélectrique qui convertit la pression de l'air en signaux électriques.</p>
+        <div class="expert-note">💡 <strong>L'avis d'Alfred :</strong> "Très précis, mais il craint l'humidité."</div>
+      </div>
+
+      <div id="echo-sonde" class="explanation-box">
+        <h3>1. La Sonde (Le Cœur)</h3>
+        <p>Elle contient des cristaux piézoélectriques qui vibrent pour émettre des ultrasons et créer une image.</p>
+        <div class="expert-note">💡 <strong>L'avis d'Alfred :</strong> "C'est la partie la plus chère de l'appareil."</div>
+      </div>
+      <div id="echo-ecran" class="explanation-box">
+        <h3>2. L'Écran d'Affichage</h3>
+        <p>Un ordinateur puissant transforme les échos des ultrasons en images en temps réel.</p>
+        <div class="expert-note">💡 <strong>L'avis d'Alfred :</strong> "La carte graphique est aussi puissante qu'un PC de gamer !"</div>
+      </div>
+
+      <div id="gluco-bandelette" class="explanation-box">
+        <h3>1. La Bandelette (Le Biosenseur)</h3>
+        <p>Une bandelette réactive qui, au contact d'une goutte de sang, déclenche une réaction chimique.</p>
+        <div class="expert-note">💡 <strong>L'avis d'Alfred :</strong> "Chaque bandelette contient des enzymes. C'est de la chimie pure."</div>
+      </div>
+      <div id="gluco-ecran" class="explanation-box">
+        <h3>2. L'Écran et la Puce</h3>
+        <p>Une petite puce électronique mesure le courant électrique généré par la réaction chimique.</p>
+        <div class="expert-note">💡 <strong>L'avis d'Alfred :</strong> "Ce sont de véritables petits laboratoires de poche."</div>
+      </div>
+    </div>
+
+    <!-- PROFIL D'ALFRED & RÉPARATION -->
+    <div class="expert-profile">
+      <!-- Photo locale d'Alfred -->
+      <img src="assets/photo-mecatronicien.jpg" alt="Alfred" class="expert-img" />
+      
+      <h3>Alfred</h3>
+      <p>Ingénieur Mécatronicien.<br>Il démonte et répare les équipements médicaux pour vous expliquer comment ils sauvent des vies.</p>
+      
+      <!-- Lien WhatsApp d'Alfred -->
+      <a href="https://wa.me/2250788482483?text=Bonjour%20Alfred,%20je%20souhaite%20faire%20réparer%20un%20équipement%20médical%20vu%20sur%20la%20rubrique%20Tech%20et%20Santé." target="_blank" class="btn-repair">
+        🛠️ Demander une réparation
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    function openDevice(deviceId, btn) {
+      const views = document.querySelectorAll('.device-view');
+      views.forEach(view => view.classList.remove('active'));
+      document.getElementById(deviceId).classList.add('active');
+
+      const btns = document.querySelectorAll('.tab-btn');
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      hideAllInfos();
+    }
+
+    function hideAllInfos() {
+      const boxes = document.querySelectorAll('.explanation-box');
+      boxes.forEach(box => box.style.display = 'none');
+    }
+
+    function showInfo(id) {
+      hideAllInfos();
+      const target = document.getElementById(id);
+      if (target) {
+        target.style.display = 'block';
+        target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Espace Rédacteur - Le Pouls Numérique</title>
+  <style>
+    body { background-color: #0f172a; color: #e2e8f0; font-family: system-ui, sans-serif; padding: 2rem; display: flex; justify-content: center; }
+    .dashboard { width: 100%; max-width: 500px; background: #1e293b; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
+    .header h1 { color: #fff; font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .header p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 2rem; }
+    
+    .card { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.1); }
+    .card h2 { font-size: 1rem; color: #94a3b8; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; }
+    
+    .score { font-size: 3rem; font-weight: 900; color: #10b981; margin: 0; line-height: 1; }
+    .status-badge { display: inline-block; background: #f59e0b; color: #0f172a; font-weight: 800; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.8rem; margin-top: 1rem; text-transform: uppercase; }
+    
+    .progress-bar { width: 100%; height: 10px; background: #334155; border-radius: 5px; margin-top: 1.5rem; overflow: hidden; }
+    .progress-fill { height: 100%; background: #10b981; width: 70%; border-radius: 5px; }
+    .progress-text { font-size: 0.8rem; color: #94a3b8; margin-top: 0.5rem; }
+    
+    .btn { display: block; width: 100%; background: #3b82f6; color: white; text-decoration: none; padding: 1rem; border-radius: 10px; font-weight: 700; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+    <div class="header">
+      <h1>Espace Rédacteur</h1>
+      <p>Bienvenue, [Nom du Rédacteur]</p>
+    </div>
+
+    <div class="card">
+      <h2>Votre Solde Virtuel</h2>
+      <p class="score">1 250 <span style="font-size: 1rem; color: #94a3b8;">pts</span></p>
+      <div class="status-badge">Rédacteur Argent</div>
+      
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+      <p class="progress-text">Plus que 750 pts pour atteindre le statut Or !</p>
+    </div>
+
+    <div class="card">
+      <h2>Vos Statistiques</h2>
+      <div style="display: flex; justify-content: space-around; margin-top: 1rem;">
+        <div>
+          <p style="font-size: 1.5rem; font-weight: bold; color: #fff; margin: 0;">5</p>
+          <p style="font-size: 0.8rem; color: #94a3b8;">Articles publiés</p>
+        </div>
+        <div>
+          <p style="font-size: 1.5rem; font-weight: bold; color: #fff; margin: 0;">120</p>
+          <p style="font-size: 0.8rem; color: #94a3b8;">Likes reçus</p>
+        </div>
+      </div>
+    </div>
+
+    <a href="https://wa.me/2250788482483?text=Bonjour,%20je%20suis%20rédacteur,%20je%20souhaite%20retirer%20mes%20points." class="btn">
+      💸 Demander un retrait (WhatsApp)
+    </a>
+  </div>
+
+</body>
+</html>
