@@ -25,56 +25,44 @@
 
     /* --- BANNIÈRE --- */
     .tech-banner {
-      position: relative;
-      width: 100%;
-      height: 120px;
-      border-radius: 16px;
-      overflow: hidden;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255,255,255,0.1);
+      position: relative; width: 100%; height: 120px; border-radius: 16px; overflow: hidden;
+      margin-bottom: 1.5rem; display: flex; align-items: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
     }
     
-    /* L'image de fond */
     .tech-banner img {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      opacity: 0.8; /* Opacité augmentée pour voir l'image */
-      z-index: 1;
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0.8; z-index: 1;
     }
 
-    /* Le texte par-dessus l'image (calé à gauche pour le fond bleu) */
-    .tech-banner-text {
-      position: relative;
-      z-index: 2;
-      text-align: left;
-      padding-left: 1.5rem;
+    .tech-banner-text { position: relative; z-index: 2; text-align: left; padding-left: 1.5rem; }
+    .tech-banner-text h1 { font-size: 1.8rem; color: #fff; margin-bottom: 0.2rem; letter-spacing: 1px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+    .tech-banner-text p { font-size: 0.8rem; color: #cbd5e1; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
+
+    /* --- NOUVEAU : ENCART D'INSTRUCTIONS --- */
+    .instruction-box {
+      background: rgba(14, 165, 233, 0.1);
+      border: 1px dashed var(--primary);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      animation: pulse-border 3s infinite;
     }
-    .tech-banner-text h1 {
-      font-size: 1.8rem;
-      color: #fff;
-      margin-bottom: 0.2rem;
-      letter-spacing: 1px;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    @keyframes pulse-border {
+      0% { border-color: rgba(14, 165, 233, 0.2); }
+      50% { border-color: rgba(14, 165, 233, 0.8); }
+      100% { border-color: rgba(14, 165, 233, 0.2); }
     }
-    .tech-banner-text p {
-      font-size: 0.8rem;
-      color: #cbd5e1;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 700;
-      text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+    .instruction-box p {
+      font-size: 0.9rem; color: #e2e8f0; margin: 0; font-weight: 600; line-height: 1.4;
+    }
+    .instruction-box strong {
+      color: var(--accent); /* Met en valeur le mot "cliquez" */
     }
 
     /* --- ONGLETS --- */
-    .tabs {
-      display: flex; gap: 0.5rem; margin-bottom: 1.5rem; overflow-x: auto; padding-bottom: 0.5rem;
-      scrollbar-width: none; 
-    }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; overflow-x: auto; padding-bottom: 0.5rem; scrollbar-width: none; }
     .tabs::-webkit-scrollbar { display: none; }
     
     .tab-btn {
@@ -83,10 +71,7 @@
       border-radius: 20px; font-weight: 700; font-size: 0.85rem; cursor: pointer;
       white-space: nowrap; transition: all 0.3s; font-family: 'Nunito', sans-serif;
     }
-    .tab-btn.active { 
-      background-color: var(--primary); color: #fff; 
-      border-color: var(--primary); box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
-    }
+    .tab-btn.active { background-color: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 0 15px rgba(14, 165, 233, 0.4); }
 
     /* --- APPAREILS --- */
     .device-view {
@@ -95,9 +80,7 @@
       position: relative; border: 1px solid rgba(255,255,255,0.05);
     }
     .device-view.active { display: block; animation: fadeIn 0.5s ease-out; }
-    
     @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
     .device-view img { width: 100%; display: block; opacity: 0.9; }
 
     /* --- POINTS CLIQUABLES --- */
@@ -119,7 +102,7 @@
       100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
     }
 
-    /* Positions ajustées sur tes images */
+    /* Positions ajustées */
     .tensio-spot-1 { top: 55%; left: 35%; } 
     .tensio-spot-2 { top: 35%; left: 70%; } 
     .echo-spot-1 { top: 65%; left: 45%; } 
@@ -129,8 +112,7 @@
 
     /* --- EXPLICATIONS --- */
     .explanation-box {
-      background-color: rgba(14, 165, 233, 0.1); 
-      border: 1px solid var(--primary); 
+      background-color: rgba(14, 165, 233, 0.1); border: 1px solid var(--primary); 
       border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem;
       display: none; animation: fadeIn 0.3s;
     }
@@ -138,20 +120,19 @@
     .explanation-box p { font-size: 0.95rem; color: #cbd5e1; line-height: 1.5; }
     
     .expert-note { 
-      font-size: 0.85rem; color: #94a3b8; font-style: italic; 
-      margin-top: 1rem; border-top: 1px dashed rgba(255,255,255,0.2); 
-      padding-top: 0.8rem; background: rgba(0,0,0,0.2); 
-      padding: 0.8rem; border-radius: 8px; 
+      font-size: 0.85rem; color: #94a3b8; font-style: italic; margin-top: 1rem; 
+      border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 0.8rem; 
+      background: rgba(0,0,0,0.2); padding: 0.8rem; border-radius: 8px; 
     }
 
     /* --- PROFIL D'ALFRED --- */
     .expert-profile {
       background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 24px; padding: 1.5rem; margin-top: 2.5rem;
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 1.5rem; margin-top: 2.5rem;
       display: flex; flex-direction: column; align-items: center; text-align: center;
     }
-    .expert-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); margin-bottom: 1rem; }
+    /* Taille et cadre de la photo d'Alfred */
+    .expert-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); margin-bottom: 1rem; background-color: #334155; }
     .expert-profile h3 { color: #fff; font-size: 1.2rem; margin-bottom: 0.2rem; }
     .expert-profile p { color: var(--muted); font-size: 0.85rem; margin-bottom: 1rem; line-height: 1.4; }
     
@@ -172,12 +153,16 @@
     
     <!-- BANNIÈRE -->
     <div class="tech-banner">
-      <!-- Image de fond locale -->
       <img src="assets/banner-tech.jpg" alt="Tech Medical">
       <div class="tech-banner-text">
         <h1>⚙️ Tech & Santé</h1>
         <p>Démystifier la technologie</p>
       </div>
+    </div>
+
+    <!-- LE NOUVEAU MESSAGE D'INSTRUCTION -->
+    <div class="instruction-box">
+      <p>💡 <strong>Cliquez sur les points 1 et 2</strong> pour découvrir les composants cachés derrière l'appareil !</p>
     </div>
 
     <!-- ONGLETS -->
@@ -244,13 +229,12 @@
 
     <!-- PROFIL D'ALFRED & RÉPARATION -->
     <div class="expert-profile">
-      <!-- Photo locale d'Alfred -->
-      <img src="assets/photo-mecatronicien.jpg" alt="Alfred" class="expert-img" />
+      <!-- Nouvelle photo d'Alfred en .png -->
+      <img src="assets/photo-mecatronicien.png" alt="Alfred" class="expert-img" />
       
       <h3>Alfred</h3>
       <p>Ingénieur Mécatronicien.<br>Il démonte et répare les équipements médicaux pour vous expliquer comment ils sauvent des vies.</p>
       
-      <!-- Lien WhatsApp d'Alfred -->
       <a href="https://wa.me/2250788482483?text=Bonjour%20Alfred,%20je%20souhaite%20faire%20réparer%20un%20équipement%20médical%20vu%20sur%20la%20rubrique%20Tech%20et%20Santé." target="_blank" class="btn-repair">
         🛠️ Demander une réparation
       </a>
