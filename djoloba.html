@@ -18,27 +18,67 @@
       --purple: #8b5cf6; --yellow-bg: #fefce8; --yellow-border: #fef08a; --yellow-text: #854d0e;
       --blue-bg: #eff6ff; --blue-border: #bfdbfe; --blue-text: #1e3a8a;
       --green-bg: #f0fdf4; --green-border: #bbf7d0; --green-text: #166534;
-      --accent: #f97316; /* Orange pour Express */
+      --accent: #f97316;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background-color: var(--bg); color: var(--text); font-family: system-ui, sans-serif; padding-bottom: 2rem; overflow-x: hidden; scroll-behavior: smooth; }
     .container { width: 100%; max-width: 600px; margin: 0 auto; }
 
-    /* MENU LATÉRAL */
+    /* --- NOUVEAU MENU LATÉRAL MODERNE --- */
     .sidebar {
       height: 100%; width: 0; position: fixed; z-index: 1000; top: 0; left: 0;
-      background-color: #0f172a; overflow-x: hidden; transition: 0.3s;
-      padding-top: 60px; box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+      background-color: rgba(15, 23, 42, 0.95); /* Fond sombre translucide */
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      overflow-x: hidden; transition: width 0.3s ease;
+      padding-top: 2rem; box-shadow: 4px 0 25px rgba(0,0,0,0.5);
+      display: flex; flex-direction: column;
     }
-    .sidebar a {
-      padding: 15px 25px; text-decoration: none; font-size: 1.05rem;
-      color: #e2e8f0; display: block; transition: 0.2s;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+    
+    .sidebar-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 1.5rem 1.5rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 1rem;
     }
-    .sidebar a:hover { background-color: #1e293b; color: var(--primary); }
-    .sidebar .closebtn { position: absolute; top: 10px; right: 20px; font-size: 30px; color: white; cursor: pointer; }
+    .sidebar-title { color: #fff; font-size: 1.2rem; font-weight: 800; }
+    .sidebar .closebtn { font-size: 30px; color: #94a3b8; cursor: pointer; transition: color 0.2s; line-height: 1; }
+    .sidebar .closebtn:hover { color: #fff; }
 
-    /* EN-TÊTE */
+    /* La grille de menu */
+    .menu-grid {
+      display: grid; grid-template-columns: 1fr; gap: 0.8rem;
+      padding: 0 1.5rem; overflow-y: auto;
+    }
+    
+    /* Les cartes du menu */
+    .menu-card {
+      display: flex; align-items: center; gap: 1rem;
+      background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1);
+      padding: 1rem; border-radius: 16px; text-decoration: none;
+      color: #e2e8f0; transition: all 0.2s ease;
+    }
+    .menu-card:hover, .menu-card:active {
+      background: rgba(255, 255, 255, 0.1); transform: translateX(5px);
+      border-color: rgba(255,255,255,0.2);
+    }
+    
+    .menu-icon {
+      width: 45px; height: 45px; border-radius: 12px;
+      display: flex; justify-content: center; align-items: center;
+      font-size: 1.5rem; flex-shrink: 0;
+    }
+    /* Couleurs spécifiques pour chaque icône */
+    .icon-search { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+    .icon-express { background: rgba(249, 115, 22, 0.2); color: #fb923c; }
+    .icon-radio { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+    .icon-health { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+    .icon-pro { background: rgba(14, 165, 233, 0.2); color: #38bdf8; }
+    .icon-emergency { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+    .menu-text h4 { font-size: 1rem; margin-bottom: 0.2rem; color: #fff; }
+    .menu-text p { font-size: 0.75rem; color: #94a3b8; }
+
+    /* --- EN-TÊTE (Inchangé) --- */
     .header-weather { background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); color: white; padding: 1rem 1.2rem; margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2); display: flex; flex-direction: column; gap: 0.8rem; }
     .header-top { display: flex; justify-content: space-between; align-items: center; width: 100%; padding-left: 0; }
     
@@ -67,7 +107,7 @@
 
     .section-target { scroll-margin-top: 20px; }
     
-    /* CARTES */
+    /* LE RESTE DU DESIGN EST INCHANGÉ */
     .tip-card { background-color: var(--yellow-bg); border: 1px solid var(--yellow-border); border-radius: 16px; padding: 1rem; margin-bottom: 1rem; display: flex; gap: 1rem; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
     .tip-image { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--yellow-border); background-color: #fff; flex-shrink: 0; }
     .tip-content h4 { color: var(--yellow-text); font-size: 0.9rem; margin-bottom: 0.2rem; }
@@ -90,21 +130,9 @@
     #map-container { display: none; margin-bottom: 1rem; }
     #map { height: 300px; width: 100%; border-radius: 16px; border: 2px solid var(--primary); z-index: 1; }
 
-    /* ENCART EXPRESS (Déplacé ici, sous la carte) */
-    .express-box { 
-      background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%); 
-      border: 1px solid rgba(249, 115, 22, 0.3); 
-      border-radius: 16px; 
-      padding: 1.2rem; 
-      margin-bottom: 1rem; 
-      text-align: center;
-    }
+    .express-box { background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%); border: 1px solid rgba(249, 115, 22, 0.3); border-radius: 16px; padding: 1.2rem; margin-bottom: 1rem; text-align: center; }
     .express-box p { font-size: 0.85rem; color: #475569; margin-bottom: 0.8rem; font-weight: 500; }
-    .btn-express { 
-      display: inline-block; background-color: var(--accent); color: white; 
-      font-weight: 700; padding: 0.7rem 1.2rem; border-radius: 10px; 
-      text-decoration: none; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.2);
-    }
+    .btn-express { display: inline-block; background-color: var(--accent); color: white; font-weight: 700; padding: 0.7rem 1.2rem; border-radius: 10px; text-decoration: none; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.2); }
 
     .radio-widget { background-color: var(--card); border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.04); margin-bottom: 1rem; text-align: center; border: 1px solid #f1f5f9; }
     .radio-header { display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
@@ -140,27 +168,80 @@
 </head>
 <body>
 
-  <!-- MENU LATÉRAL -->
+  <!-- LE NOUVEAU MENU LATÉRAL MODERNE -->
   <div id="mySidebar" class="sidebar">
-    <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()">×</a>
-    <a href="#section-recherche" onclick="toggleNav()">📍 Trouver un soin</a>
-    <a href="express.html" onclick="toggleNav()">🛵 Djoloba Express</a>
-    <a href="#section-radio" onclick="toggleNav()">📻 Radio Djoloba</a>
-    <a href="#section-public" onclick="toggleNav()">❤️ Bilan santé</a>
-    <a href="#section-pro" onclick="toggleNav()">🩺 Outils soignants</a>
-    <a href="#section-urgence" onclick="toggleNav()">🚨 Urgences</a>
+    <div class="sidebar-header">
+      <div class="sidebar-title">Menu Djoloba</div>
+      <span class="closebtn" onclick="toggleNav()">×</span>
+    </div>
+    
+    <div class="menu-grid">
+      <a href="#section-recherche" class="menu-card" onclick="toggleNav()">
+        <div class="menu-icon icon-search">📍</div>
+        <div class="menu-text">
+          <h4>Trouver un soin</h4>
+          <p>Pharmacies, hôpitaux...</p>
+        </div>
+      </a>
+      
+      <a href="express.html" class="menu-card" onclick="toggleNav()">
+        <div class="menu-icon icon-express">🛵</div>
+        <div class="menu-text">
+          <h4>Djoloba Express</h4>
+          <p>Transport & Livraison</p>
+        </div>
+      </a>
+
+      <a href="tech_sante.html" class="menu-card" onclick="toggleNav()">
+        <div class="menu-icon icon-pro" style="background: rgba(14, 165, 233, 0.2); color: #38bdf8;">⚙️</div>
+        <div class="menu-text">
+          <h4>Tech & Santé</h4>
+          <p>Découvrir les machines</p>
+        </div>
+      </a>
+      
+      <a href="#section-radio" class="menu-card" onclick="toggleNav()">
+        <div class="menu-icon icon-radio">📻</div>
+        <div class="menu-text">
+          <h4>Radio Djoloba</h4>
+          <p>La chronique du jour</p>
+        </div>
+      </a>
+      
+      <a href="#section-public" class="menu-card" onclick="toggleNav()">
+        <div class="menu-icon icon-health">❤️</div>
+        <div class="menu-text">
+          <h4>Bilan Santé</h4>
+          <p>Calculateurs rapides</p>
+        </div>
+      </a>
+
+      <a href="#section-pro" class="menu-card" onclick="toggleNav()">
+        <div class="menu-icon icon-pro">🩺</div>
+        <div class="menu-text">
+          <h4>Espace Soignants</h4>
+          <p>Outils professionnels</p>
+        </div>
+      </a>
+
+      <a href="#section-urgence" class="menu-card" onclick="toggleNav()">
+        <div class="menu-icon icon-emergency">🚨</div>
+        <div class="menu-text">
+          <h4>Urgences</h4>
+          <p>SAMU 185</p>
+        </div>
+      </a>
+    </div>
   </div>
 
   <div class="container">
-    <!-- EN-TÊTE MODERNE -->
+    <!-- EN-TÊTE -->
     <div class="header-weather">
       <div class="header-top">
         <button class="menu-btn" onclick="toggleNav()">
           <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
         </button>
-        
         <div class="logo">Djolo<span>ba</span></div>
-        
         <div class="badge-ci">🇨🇮 CIV</div>
       </div>
       
@@ -182,7 +263,7 @@
         </div>
       </div>
 
-      <!-- SECTION RECHERCHE -->
+      <!-- RECHERCHE -->
       <div id="section-recherche" class="search-box section-target">
         <div class="form-group">
           <label>Que cherchez-vous ?</label>
@@ -199,17 +280,16 @@
         <button class="btn-primary" onclick="chercherEtablissement()">Trouver maintenant</button>
       </div>
 
-      <!-- LES RÉSULTATS SONT MAINTENANT DIRECTEMENT SOUS LE BOUTON -->
       <div id="results-list"></div>
       <div id="map-container"><div id="map"></div></div>
 
-      <!-- ENCART EXPRESS (Déplacé ici pour ne pas gêner la recherche) -->
+      <!-- EXPRESS -->
       <div class="express-box">
         <p>🛵 Trop malade pour vous déplacer ? Besoin d'une livraison urgente ?</p>
         <a href="express.html" class="btn-express">Découvrir Djoloba Express</a>
       </div>
 
-      <!-- SECTION RADIO -->
+      <!-- RADIO -->
       <div id="section-radio" class="radio-widget section-target">
         <div class="radio-header"><span class="live-dot"></span><h3>Radio Djoloba</h3></div>
         <p class="radio-desc">La chronique santé du jour (2 min)</p>
@@ -217,12 +297,12 @@
         <button class="radio-btn" id="playBtn" onclick="togglePlay()">▶ Écouter la chronique</button>
       </div>
 
-      <!-- SECTION URGENCE -->
+      <!-- URGENCE -->
       <div id="section-urgence" class="section-target">
         <a href="tel:185" class="emergency-btn"><span>🚨</span> Appeler le SAMU (185)</a>
       </div>
 
-      <!-- SECTION BILAN GRAND PUBLIC -->
+      <!-- BILAN GRAND PUBLIC -->
       <div id="section-public" class="public-tools-box section-target">
         <h3>❤️ Mon bilan santé rapide</h3>
         <div class="calc-group-public">
@@ -239,7 +319,7 @@
         </div>
       </div>
 
-      <!-- SECTION PRO -->
+      <!-- ESPACE PRO -->
       <div id="section-pro" class="pro-tools-box section-target">
         <h3>🩺 Outils pour les soignants</h3>
         <p style="font-size: 0.8rem; color: #475569; margin-bottom: 1rem;">Un accès réservé aux professionnels de santé partenaires.</p>
@@ -267,8 +347,9 @@
     // --- MENU LATÉRAL ---
     function toggleNav() {
       const sidebar = document.getElementById("mySidebar");
-      if (sidebar.style.width === "260px") { sidebar.style.width = "0"; } 
-      else { sidebar.style.width = "260px"; }
+      // Modification de la largeur pour le menu moderne (un peu plus large)
+      if (sidebar.style.width === "300px") { sidebar.style.width = "0"; } 
+      else { sidebar.style.width = "300px"; }
     }
 
     // --- MÉTÉO ---
