@@ -30,16 +30,9 @@
     .instruction-box p { font-size: 0.9rem; color: #e2e8f0; margin: 0; font-weight: 600; line-height: 1.4; }
     .instruction-box strong { color: var(--accent); }
 
-    /* --- NOUVEAU : ONGLETS AVEC BARRE DE DÉFILEMENT --- */
-    .tabs-wrapper {
-      position: relative;
-      margin-bottom: 1.5rem;
-    }
-    
-    .tabs {
-      display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.8rem;
-      scrollbar-width: none; /* Cache la barre par défaut */
-    }
+    /* ONGLETS */
+    .tabs-wrapper { position: relative; margin-bottom: 1.5rem; }
+    .tabs { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.8rem; scrollbar-width: none; scroll-behavior: smooth; }
     .tabs::-webkit-scrollbar { display: none; }
     
     .tab-btn {
@@ -53,18 +46,8 @@
       border-color: var(--primary); box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
     }
 
-    /* La barre de défilement personnalisée */
-    .scroll-indicator-track {
-      position: absolute;
-      bottom: 0; left: 0; width: 100%; height: 4px;
-      background: rgba(255,255,255,0.1); border-radius: 4px;
-      overflow: hidden;
-    }
-    .scroll-indicator-bar {
-      height: 100%; background: var(--primary); border-radius: 4px;
-      width: 30%; /* Largeur initiale */
-      transition: transform 0.1s ease-out; /* Animation fluide */
-    }
+    .scroll-indicator-track { position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
+    .scroll-indicator-bar { height: 100%; background: var(--primary); border-radius: 4px; width: 30%; transition: transform 0.1s ease-out; }
 
     /* APPAREILS */
     .device-view { display: none; background-color: var(--card); border-radius: 24px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3); margin-bottom: 1.5rem; position: relative; border: 1px solid rgba(255,255,255,0.05); }
@@ -77,22 +60,19 @@
     .hotspot:hover { transform: scale(1.2); background-color: var(--primary); }
     @keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(249, 115, 22, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); } }
 
-    /* Positions Ajustées */
+    /* Positions */
     .tensio-spot-1 { top: 55%; left: 35%; } 
     .tensio-spot-2 { top: 35%; left: 70%; } 
     .echo-spot-1 { top: 65%; left: 45%; } 
     .echo-spot-2 { top: 15%; left: 45%; }
     .gluco-spot-1 { top: 75%; left: 25%; } 
     .gluco-spot-2 { top: 40%; left: 40%; }
-    
-    .pousse-spot-1 { top: 35%; left: 50%; } /* Ajusté sur l'écran */
+    .pousse-spot-1 { top: 35%; left: 50%; } 
     .pousse-spot-2 { top: 65%; left: 65%; } 
-    
-    .monito-spot-1 { top: 45%; left: 40%; } /* Centré sur les courbes */
-    .monito-spot-2 { top: 55%; left: 95%; } /* Décalé vers les prises à droite */
-    
-    .auto-spot-1 { top: 50%; left: 45%; } /* Centré dans la cuve */
-    .auto-spot-2 { top: 45%; left: 75%; } /* Sur le panneau de contrôle */
+    .monito-spot-1 { top: 45%; left: 40%; } 
+    .monito-spot-2 { top: 55%; left: 95%; } 
+    .auto-spot-1 { top: 50%; left: 45%; } 
+    .auto-spot-2 { top: 45%; left: 75%; } 
 
     /* EXPLICATIONS */
     .explanation-box { background-color: rgba(14, 165, 233, 0.1); border: 1px solid var(--primary); border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; display: none; animation: fadeIn 0.3s; }
@@ -127,7 +107,7 @@
       <p>💡 <strong>Faites glisser les onglets</strong> et <strong>cliquez sur les points</strong> pour découvrir les composants cachés !</p>
     </div>
 
-    <!-- ONGLETS AVEC INDICATEUR DE DÉFILEMENT -->
+    <!-- ONGLETS -->
     <div class="tabs-wrapper">
       <div class="tabs" id="tabsContainer">
         <button class="tab-btn active" onclick="openDevice('tensiometre', this)">🩺 Tensiomètre</button>
@@ -137,7 +117,6 @@
         <button class="tab-btn" onclick="openDevice('monitoring', this)">📈 Monitoring</button>
         <button class="tab-btn" onclick="openDevice('autoclave', this)">♨️ Autoclave</button>
       </div>
-      <!-- La barre visuelle -->
       <div class="scroll-indicator-track">
         <div class="scroll-indicator-bar" id="scrollBar"></div>
       </div>
@@ -180,7 +159,7 @@
       <div class="hotspot auto-spot-2" onclick="showInfo('auto-panneau')">2</div>
     </div>
 
-    <!-- EXPLICATIONS -->
+    <!-- EXPLICATIONS (Textes corrigés pour le pousse-seringue) -->
     <div id="info-container">
       <div id="tensio-ecran" class="explanation-box"><h3>1. L'Écran</h3><p>Un microprocesseur traduit les signaux électriques en chiffres.</p><div class="expert-note">💡 <strong>Alfred :</strong> "L'écran est fragile."</div></div>
       <div id="tensio-brassard" class="explanation-box"><h3>2. Le Brassard</h3><p>Un capteur de pression convertit l'air en signaux électriques.</p><div class="expert-note">💡 <strong>Alfred :</strong> "Très précis, mais craint l'humidité."</div></div>
@@ -191,8 +170,16 @@
       <div id="gluco-bandelette" class="explanation-box"><h3>1. La Bandelette</h3><p>Réagit au contact du sang pour créer une réaction chimique.</p><div class="expert-note">💡 <strong>Alfred :</strong> "De la chimie pure."</div></div>
       <div id="gluco-ecran" class="explanation-box"><h3>2. La Puce</h3><p>Mesure le courant électrique et l'affiche en taux de sucre.</p><div class="expert-note">💡 <strong>Alfred :</strong> "Un mini-laboratoire."</div></div>
 
-      <div id="pousse-moteur" class="explanation-box"><h3>1. Le Moteur</h3><p>Un moteur pas-à-pas contrôle la vitesse d'injection du médicament.</p><div class="expert-note">💡 <strong>Alfred :</strong> "La précision est vitale."</div></div>
-      <div id="pousse-seringue-partie" class="explanation-box"><h3>2. Le Support</h3><p>Maintient la seringue pour une injection continue.</p><div class="expert-note">💡 <strong>Alfred :</strong> "Nécessite un entretien régulier."</div></div>
+      <div id="pousse-moteur" class="explanation-box">
+        <h3>1. L'Écran de Contrôle</h3>
+        <p>Il affiche le débit (ml/h) et la dose programmée. C'est le "cerveau" qui permet à l'infirmier de régler la vitesse d'injection.</p>
+        <div class="expert-note">💡 <strong>Alfred :</strong> "L'écran doit être parfaitement lisible pour éviter toute erreur de dosage."</div>
+      </div>
+      <div id="pousse-seringue-partie" class="explanation-box">
+        <h3>2. Le Mécanisme (Le Moteur)</h3>
+        <p>Un moteur pas-à-pas, caché sous le boîtier, actionne la tête de pousse bleue. Il avance millimètre par millimètre pour injecter le produit en continu.</p>
+        <div class="expert-note">💡 <strong>Alfred :</strong> "La précision du moteur est vitale. Un blocage peut être dangereux pour le patient."</div>
+      </div>
 
       <div id="monito-ecran" class="explanation-box"><h3>1. L'Écran</h3><p>Affiche le rythme cardiaque, la saturation et la tension en temps réel.</p><div class="expert-note">💡 <strong>Alfred :</strong> "Une carte électronique complexe."</div></div>
       <div id="monito-capteurs" class="explanation-box"><h3>2. Les Capteurs</h3><p>Électrodes envoyant les signaux du patient à l'appareil.</p><div class="expert-note">💡 <strong>Alfred :</strong> "Les câbles s'abîment souvent."</div></div>
@@ -212,15 +199,23 @@
   </div>
 
   <script>
-    // 1. GESTION DES ONGLETS ET DES APPAREILS
+    // 1. GESTION DES ONGLETS
     function openDevice(deviceId, btn) {
+      // Afficher le bon appareil
       const views = document.querySelectorAll('.device-view');
       views.forEach(view => view.classList.remove('active'));
       document.getElementById(deviceId).classList.add('active');
+      
+      // Gérer l'état actif des boutons
       const btns = document.querySelectorAll('.tab-btn');
       btns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      
+      // Cacher les explications
       hideAllInfos();
+
+      // NOUVEAU : Centrer l'onglet cliqué au milieu de la barre
+      scrollToActiveTab(btn);
     }
 
     function hideAllInfos() {
@@ -237,18 +232,26 @@
       }
     }
 
-    // 2. GESTION DE LA BARRE DE DÉFILEMENT DES ONGLETS
+    // 2. FONCTION POUR CENTRER L'ONGLET CLIQUÉ
+    function scrollToActiveTab(btn) {
+      const tabsContainer = document.getElementById('tabsContainer');
+      // Calcul de la position pour centrer l'onglet
+      const scrollLeft = btn.offsetLeft - (tabsContainer.clientWidth / 2) + (btn.offsetWidth / 2);
+      
+      // Faire défiler la barre en douceur
+      tabsContainer.scrollTo({
+        left: scrollLeft,
+        behavior: 'smooth'
+      });
+    }
+
+    // 3. GESTION DE LA BARRE DE DÉFILEMENT VISUELLE
     const tabsContainer = document.getElementById('tabsContainer');
     const scrollBar = document.getElementById('scrollBar');
 
     tabsContainer.addEventListener('scroll', () => {
-      // Calcul de la position de défilement (0 à 1)
       const scrollPercentage = tabsContainer.scrollLeft / (tabsContainer.scrollWidth - tabsContainer.clientWidth);
-      
-      // On calcule la largeur de la barre visuelle (ex: 30%) et la distance qu'elle peut parcourir (70%)
       const maxTranslate = 100 - (scrollBar.offsetWidth / tabsContainer.clientWidth) * 100;
-      
-      // On applique le déplacement (translateX) à la petite barre bleue
       scrollBar.style.transform = `translateX(${scrollPercentage * maxTranslate}%)`;
     });
   </script>
